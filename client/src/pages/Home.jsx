@@ -8,7 +8,7 @@ export default function Home() {
       <button>Start reading</button>
       <img
         src={homeImg}
-        alt="Womens Day Flower Abstract Art"
+        alt="Women Day Flower Abstract Art"
         className="absolute -right-40 h-5/6 -translate-y-8 object-cover"
       />
     </div>
