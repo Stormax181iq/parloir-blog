@@ -29,7 +29,7 @@ export default function Header() {
           />
           <span
             className="absolute top-0 bottom-0 right-0 left-0 bg-main-white rounded-2xl
-            before:absolute before:bg-third before:h-6 before:w-6 before:left-0 before:bottom-0 before:rounded-xl
+            before:absolute before:bg-accent before:h-6 before:w-6 before:left-0 before:bottom-0 before:rounded-xl
             peer-checked:before:translate-x-6 before:duration-200 peer-checked:bg-main-black peer-focus:shadow-md"
           ></span>
           <FontAwesomeIcon
