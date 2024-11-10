@@ -12,7 +12,7 @@ export default function Header() {
   const [checked, setChecked] = useState(false);
   const isLoggedIn = false;
   return (
-    <header className="mx-72 flex items-center justify-between border-b border-main-black">
+    <header className="mx-64 h-[15vh] flex items-center justify-between border-b border-main-black">
       <div>
         <a href="/" aria-label="home page">
           <img src={logo} alt="logo" width={250} />
@@ -47,7 +47,11 @@ export default function Header() {
         {!isLoggedIn && (
           <>
             <HeaderLink link="/login">Login</HeaderLink>
-            <MainButton isLink={true} link="/register">
+            <MainButton
+              isLink={true}
+              link="/register"
+              className="py-2 px-3 mx-2"
+            >
               Register
             </MainButton>
           </>

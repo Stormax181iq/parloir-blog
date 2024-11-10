@@ -1,18 +1,30 @@
 import PropTypes from "prop-types";
 
-export default function MainButton({ onClick, isLink, link, children }) {
+export default function MainButton({
+  onClick,
+  isLink,
+  link,
+  className,
+  children,
+}) {
   return (
     <>
       {isLink ? (
         <a
-          className="no-underline mx-2 bg-main-black text-main-white py-2 px-3 rounded-3xl"
+          className={
+            "no-underline bg-main-black text-main-white rounded-full " +
+            className
+          }
           href={link}
         >
           {children}
         </a>
       ) : (
         <button
-          className="no-underline mx-2 bg-main-black text-main-white py-2 px-3 rounded-3xl"
+          className={
+            "no-underline bg-main-black text-main-white rounded-full " +
+            className
+          }
           onClick={onClick}
         >
           {children}
@@ -26,5 +38,6 @@ MainButton.propTypes = {
   onClick: PropTypes.func,
   isLink: PropTypes.bool,
   link: PropTypes.string,
+  className: PropTypes.string,
   children: PropTypes.node,
 };
