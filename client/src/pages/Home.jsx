@@ -1,6 +1,7 @@
 import { useRef } from "react";
 
 import MainButton from "../components/MainButton";
+import CategoryButton from "../components/CategoryButton";
 
 import homeImg from "../assets/homeWomanArt.png";
 
@@ -35,42 +36,12 @@ export default function Home() {
             Popular categories
           </h1>
           <div className="flex justify-between">
-            <a
-              href="/posts/categories/fashion"
-              className="bg-accent px-4 py-3 rounded-full w-24 text-center"
-            >
-              Fashion
-            </a>
-            <a
-              href="/posts/categories/health"
-              className="bg-accent px-4 py-3 rounded-full w-24 text-center"
-            >
-              Health
-            </a>
-            <a
-              href="/posts/categories/coding"
-              className="bg-accent px-4 py-3 rounded-full w-24 text-center"
-            >
-              Coding
-            </a>
-            <a
-              href="/posts/categories/travel"
-              className="bg-accent px-4 py-3 rounded-full w-24 text-center"
-            >
-              Travel
-            </a>
-            <a
-              href="/posts/categories/culture"
-              className="bg-accent px-4 py-3 rounded-full w-24 text-center"
-            >
-              Culture
-            </a>
-            <a
-              href="/posts/categories/sport"
-              className="bg-accent px-4 py-3 rounded-full w-24 text-center"
-            >
-              Sport
-            </a>
+            <CategoryButton size="lg">Fashion</CategoryButton>
+            <CategoryButton size="lg">Health</CategoryButton>
+            <CategoryButton size="lg">Coding</CategoryButton>
+            <CategoryButton size="lg">Travel</CategoryButton>
+            <CategoryButton size="lg">Culture</CategoryButton>
+            <CategoryButton size="lg">Sport</CategoryButton>
           </div>
           <h1 className="text-3xl font-h my-4">Recent posts</h1>
           <div className="flex mb-8 pb-8 border-b border-main-black/10">
@@ -156,12 +127,7 @@ export default function Home() {
         <div className="ml-8 pl-8 border-l border-main-black">
           <h1 className="text-3xl font-h mb-4">Most popular</h1>
           <div className="mb-6">
-            <a
-              href="/posts/categories/travel"
-              className="bg-accent py-1 px-2 rounded-full"
-            >
-              Travel
-            </a>
+            <CategoryButton size="sm">Travel</CategoryButton>
             <a href="/users/john-doe/posts/a-journey-in-ales-194834">
               <h2 className="text-xl font-h underline mt-1">
                 A journey in Alès
@@ -170,12 +136,7 @@ export default function Home() {
             <p>John Doe &#x00B7; 27/07/2024</p>
           </div>
           <div className="mb-6">
-            <a
-              href="/posts/categories/travel"
-              className="bg-accent py-1 px-2 rounded-full"
-            >
-              Travel
-            </a>
+            <CategoryButton size="sm">Travel</CategoryButton>
             <a href="/users/john-doe/posts/a-journey-in-ales-194834">
               <h2 className="text-xl font-h underline mt-1">
                 A journey in Alès
@@ -184,12 +145,7 @@ export default function Home() {
             <p>John Doe &#x00B7; 27/07/2024</p>
           </div>
           <div className="mb-6">
-            <a
-              href="/posts/categories/travel"
-              className="bg-accent py-1 px-2 rounded-full"
-            >
-              Travel
-            </a>
+            <CategoryButton size="sm">Travel</CategoryButton>
             <a href="/users/john-doe/posts/a-journey-in-ales-194834">
               <h2 className="text-xl font-h underline mt-1">
                 A journey in Alès
@@ -198,12 +154,7 @@ export default function Home() {
             <p>John Doe &#x00B7; 27/07/2024</p>
           </div>
           <div className="mb-6">
-            <a
-              href="/posts/categories/travel"
-              className="bg-accent py-1 px-2 rounded-full"
-            >
-              Travel
-            </a>
+            <CategoryButton size="sm">Travel</CategoryButton>
             <a href="/users/john-doe/posts/a-journey-in-ales-194834">
               <h2 className="text-xl font-h underline mt-1">
                 A journey in Alès
@@ -212,12 +163,7 @@ export default function Home() {
             <p>John Doe &#x00B7; 27/07/2024</p>
           </div>
           <div className="mb-6">
-            <a
-              href="/posts/categories/travel"
-              className="bg-accent py-1 px-2 rounded-full"
-            >
-              Travel
-            </a>
+            <CategoryButton size="sm">Travel</CategoryButton>
             <a href="/users/john-doe/posts/a-journey-in-ales-194834">
               <h2 className="text-xl font-h underline mt-1">
                 A journey in Alès
@@ -228,12 +174,9 @@ export default function Home() {
 
           <h1 className="text-3xl font-h my-4">Editor’s choice</h1>
           <div className="my-8">
-            <a
-              href="/posts/categories/sport"
-              className="bg-accent py-1 px-2 rounded-full ml-14"
-            >
-              Sport
-            </a>
+            <div className="ml-14">
+              <CategoryButton size="sm">Sport</CategoryButton>
+            </div>
             <div className="flex my-2 items-center">
               <img
                 src="https://picsum.photos/50/50"
@@ -248,12 +191,9 @@ export default function Home() {
             </div>
           </div>
           <div className="my-8">
-            <a
-              href="/posts/categories/fashion"
-              className="bg-accent py-1 px-2 rounded-full ml-14"
-            >
-              Fashion
-            </a>
+            <div className="ml-14">
+              <CategoryButton size="sm">Fashion</CategoryButton>
+            </div>
             <div className="flex my-2 items-center">
               <img
                 src="https://picsum.photos/50/49"
@@ -268,12 +208,9 @@ export default function Home() {
             </div>
           </div>
           <div className="my-8">
-            <a
-              href="/posts/categories/music"
-              className="bg-accent py-1 px-2 rounded-full ml-14"
-            >
-              Music
-            </a>
+            <div className="ml-14">
+              <CategoryButton size="sm">Music</CategoryButton>
+            </div>
             <div className="flex my-2 items-center">
               <img
                 src="https://picsum.photos/49/50"
