@@ -12,7 +12,7 @@ export default function Header() {
   const [checked, setChecked] = useState(false);
   const isLoggedIn = false;
   return (
-    <header className="mx-64 h-[15vh] flex items-center justify-between border-b border-main-black">
+    <header className="sticky top-0 z-50 overflow-hidden bg-second px-[10vw] h-[8vh] flex items-center justify-between border-b border-main-black">
       <div>
         <a href="/" aria-label="home page">
           <img src={logo} alt="logo" width={250} />
