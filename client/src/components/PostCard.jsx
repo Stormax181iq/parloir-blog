@@ -16,7 +16,8 @@ export default function PostCard({
     case "lg":
       return (
         <div className="flex mb-8 pb-8 border-b border-main-black/10">
-          <img src={imgSrc} alt="" />
+          <img src={imgSrc} alt="" className="w-72 h-44" />
+          {/* TODO : fix unconsistent img ratio */}
           <div className="flex flex-col m-4 justify-between">
             <div className="flex">
               <p>{timeOfPublication}</p>
@@ -39,14 +40,23 @@ export default function PostCard({
       );
     case "sm":
       return (
-        <div className="mb-6">
-          <CategoryButton size="sm">{category}</CategoryButton>
-          <a href="/users/john-doe/posts/a-journey-in-ales-194834">
-            <h2 className="text-xl font-h underline mt-1">{title}</h2>
-          </a>
-          <p>
-            {author} {timeOfPublication}
-          </p>
+        <div className="mb-6 flex items-end">
+          {imgSrc && (
+            <img
+              src={imgSrc}
+              alt=""
+              className="rounded-full mt-1 mr-2 h-12 w-12"
+            />
+          )}
+          <div>
+            <CategoryButton size="sm">{category}</CategoryButton>
+            <a href="/users/john-doe/posts/a-journey-in-ales-194834">
+              <h2 className="text-xl font-h underline mt-1">{title}</h2>
+            </a>
+            <p>
+              {author} {timeOfPublication}
+            </p>
+          </div>
         </div>
       );
   }
