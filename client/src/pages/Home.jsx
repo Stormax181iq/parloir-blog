@@ -50,22 +50,26 @@ export default function Home() {
             <CategoryButton size="lg">Sport</CategoryButton>
           </div>
           <h1 className="text-3xl font-h my-4">Recent posts</h1>
-          <PostCard
-            title="Will Deno2 overtake Node.js ?"
-            description="For years, we’ve been using Node.js for the backend …"
-            author="Emelin Miller"
-            timeOfPublication="03/08/2024 19:12"
-            category="Coding"
-            imgSrc="https://picsum.photos/800/201"
-          />
-          <PostCard
-            title="How to type fast (100 words per minute)"
-            description="I spent too much time trying to improve my typing speed by doing the wrong things …"
-            author="Dan"
-            timeOfPublication="12/12/2024 12:12"
-            category="Productivity"
-            imgSrc="https://picsum.photos/1440/2160"
-          />
+          <div className="mb-8 pb-8 border-b border-main-black/10">
+            <PostCard
+              title="Will Deno2 overtake Node.js ?"
+              description="For years, we’ve been using Node.js for the backend …"
+              author="Emelin Miller"
+              timeOfPublication="03/08/2024 19:12"
+              category="Coding"
+              imgSrc="https://picsum.photos/800/201"
+            />
+          </div>
+          <div className="mb-8 pb-8 border-b border-main-black/10">
+            <PostCard
+              title="How to type fast (100 words per minute)"
+              description="I spent too much time trying to improve my typing speed by doing the wrong things …"
+              author="Dan"
+              timeOfPublication="12/12/2024 12:12"
+              category="Productivity"
+              imgSrc="https://picsum.photos/1440/2160"
+            />
+          </div>
           <PostCard
             title="Creating my own database system, from scratch!"
             description="I realised that some aspects of the current databases are bad, so I decided to create one myself …"
@@ -74,6 +78,17 @@ export default function Home() {
             category="Coding"
             imgSrc="https://picsum.photos/1000/1099"
           />
+          <div className="flex w-full items-center justify-between pt-4">
+            <button className="bg-third p-2 rounded-full w-28 text-main-white">
+              Previous
+            </button>
+            <p>
+              <b>1</b> - 2 - 3
+            </p>
+            <button className="bg-third p-2 rounded-full w-28 text-main-white">
+              Next
+            </button>
+          </div>
         </div>
         <div className="ml-8 pl-8 border-l border-main-black">
           <h1 className="text-3xl font-h mb-4">Most popular</h1>

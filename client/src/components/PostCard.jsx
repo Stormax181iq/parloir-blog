@@ -15,7 +15,7 @@ export default function PostCard({
   switch (size) {
     case "lg":
       return (
-        <div className="flex items-center mb-8 pb-8 border-b border-main-black/10">
+        <div className="flex items-center">
           <img src={imgSrc} alt="" className="w-1/3 h-48" />
           <div className="flex flex-col m-4 justify-between w-2/3">
             <div className="flex">

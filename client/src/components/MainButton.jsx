@@ -12,7 +12,7 @@ export default function MainButton({
       {isLink ? (
         <a
           className={
-            "no-underline bg-main-black text-main-white rounded-full " +
+            "no-underline bg-main-black text-main-white rounded-full font-medium " +
             className
           }
           href={link}
@@ -22,7 +22,7 @@ export default function MainButton({
       ) : (
         <button
           className={
-            "no-underline bg-main-black text-main-white rounded-full " +
+            "no-underline bg-main-black text-main-white rounded-full font-medium " +
             className
           }
           onClick={onClick}
