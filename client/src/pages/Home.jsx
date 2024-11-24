@@ -56,7 +56,7 @@ export default function Home() {
             author="Emelin Miller"
             timeOfPublication="03/08/2024 19:12"
             category="Coding"
-            imgSrc="https://picsum.photos/300/201"
+            imgSrc="https://picsum.photos/800/201"
           />
           <PostCard
             title="How to type fast (100 words per minute)"
@@ -64,7 +64,7 @@ export default function Home() {
             author="Dan"
             timeOfPublication="12/12/2024 12:12"
             category="Productivity"
-            imgSrc="https://picsum.photos/300/202"
+            imgSrc="https://picsum.photos/1440/2160"
           />
           <PostCard
             title="Creating my own database system, from scratch!"
@@ -72,7 +72,7 @@ export default function Home() {
             author="Arnoldlebg"
             timeOfPublication="22/09/2024 02:34"
             category="Coding"
-            imgSrc="https://picsum.photos/300/199"
+            imgSrc="https://picsum.photos/1000/1099"
           />
         </div>
         <div className="ml-8 pl-8 border-l border-main-black">

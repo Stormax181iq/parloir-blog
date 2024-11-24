@@ -15,10 +15,10 @@ export default function PostCard({
   switch (size) {
     case "lg":
       return (
-        <div className="flex mb-8 pb-8 border-b border-main-black/10">
-          <img src={imgSrc} alt="" className="w-72 h-44" />
-          {/* TODO : fix unconsistent img ratio */}
-          <div className="flex flex-col m-4 justify-between">
+        <div className="flex items-center mb-8 pb-8 border-b border-main-black/10">
+          <img src={imgSrc} alt="" className="w-1/3 h-48" />
+          {/* TODO : fix inconsistent img ratio */}
+          <div className="flex flex-col m-4 justify-between w-2/3">
             <div className="flex">
               <p>{timeOfPublication}</p>
               <div className="ml-2">
