@@ -34,7 +34,7 @@ export default function Home() {
         />
       </div>
       <div className="flex justify-stretch mx-[10vw] px-16 my-4">
-        <div className="w-2/3 mr-4">
+        <div className="w-3/4 mr-4">
           <h1
             ref={popularRef}
             className="text-3xl font-h mb-4  scroll-mt-[10vh]"

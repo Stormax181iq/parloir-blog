@@ -17,7 +17,6 @@ export default function PostCard({
       return (
         <div className="flex items-center mb-8 pb-8 border-b border-main-black/10">
           <img src={imgSrc} alt="" className="w-1/3 h-48" />
-          {/* TODO : fix inconsistent img ratio */}
           <div className="flex flex-col m-4 justify-between w-2/3">
             <div className="flex">
               <p>{timeOfPublication}</p>
@@ -40,22 +39,26 @@ export default function PostCard({
       );
     case "sm":
       return (
-        <div className="mb-6 flex items-end">
-          {imgSrc && (
-            <img
-              src={imgSrc}
-              alt=""
-              className="rounded-full mt-1 mr-2 h-12 w-12"
-            />
-          )}
-          <div>
+        <div>
+          <div className={imgSrc && "ml-14"}>
             <CategoryButton size="sm">{category}</CategoryButton>
-            <a href="/users/john-doe/posts/a-journey-in-ales-194834">
-              <h2 className="text-xl font-h underline mt-1">{title}</h2>
-            </a>
-            <p>
-              {author} {timeOfPublication}
-            </p>
+          </div>
+          <div className="mb-6 flex items-center">
+            {imgSrc && (
+              <img
+                src={imgSrc}
+                alt=""
+                className="rounded-full mt-1 mr-2 h-12 w-12"
+              />
+            )}
+            <div>
+              <a href="/users/john-doe/posts/a-journey-in-ales-194834">
+                <h2 className="text-xl font-h underline mt-1">{title}</h2>
+              </a>
+              <p>
+                {author} {timeOfPublication}
+              </p>
+            </div>
           </div>
         </div>
       );
