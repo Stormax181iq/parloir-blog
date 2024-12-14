@@ -1,5 +1,3 @@
-import { createContext, useEffect, useState } from "react";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -7,25 +5,17 @@ import Contact from "./pages/Contact";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-export const ThemeContext = createContext(null);
+import ThemeContext from "./context/ThemeContext";
+import { useTheme } from "./hooks/useTheme";
 
 function App() {
-  const [theme, setTheme] = useState("light");
-  console.log(theme);
+  const { theme, toggleTheme } = useTheme();
 
-  useEffect(() => {
-    const html = document.documentElement;
-    if (theme === "dark" && !html.classList.contains("dark")) {
-      html.classList.add("dark");
-    } else {
-      html.classList.remove("dark");
-    }
-  }, [theme]);
   return (
     <ThemeContext.Provider value={theme}>
       <Router>
         <div className="min-h-screen flex flex-col">
-          <Header theme={theme} setTheme={setTheme} />
+          <Header toggleTheme={toggleTheme} />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />

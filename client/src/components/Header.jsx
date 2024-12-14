@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import ThemeContext from "../context/ThemeContext";
+
 import HeaderLink from "./HeaderLink";
 import MainButton from "./MainButton";
 import PropTypes from "prop-types";
@@ -7,7 +10,8 @@ import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 
 import logo from "../assets/logo.png";
 
-export default function Header({ theme, setTheme }) {
+export default function Header({ toggleTheme }) {
+  const theme = useContext(ThemeContext);
   const isLoggedIn = false;
   return (
     <header className="sticky top-0 z-50 overflow-hidden px-[10vw] h-[8vh] flex items-center justify-between border-b border-main-black">
@@ -20,10 +24,7 @@ export default function Header({ theme, setTheme }) {
         <label className="cursor-pointer relative inline-block align-middle w-12 h-6">
           <input
             checked={theme === "dark"}
-            onChange={() => {
-              if (theme === "light") setTheme("dark");
-              else setTheme("light");
-            }}
+            onChange={toggleTheme}
             type="checkbox"
             name="dark mode switch"
             className="w-0 h-0 peer"
@@ -64,5 +65,5 @@ export default function Header({ theme, setTheme }) {
 
 Header.propTypes = {
   theme: PropTypes.string,
-  setTheme: PropTypes.func,
+  toggleTheme: PropTypes.func,
 };
