@@ -1,18 +1,16 @@
-import { useState } from "react";
-
 import HeaderLink from "./HeaderLink";
 import MainButton from "./MainButton";
+import PropTypes from "prop-types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 
 import logo from "../assets/logo.png";
 
-export default function Header() {
-  const [checked, setChecked] = useState(false);
+export default function Header({ theme, setTheme }) {
   const isLoggedIn = false;
   return (
-    <header className="sticky top-0 z-50 overflow-hidden bg-second px-[10vw] h-[8vh] flex items-center justify-between border-b border-main-black">
+    <header className="sticky top-0 z-50 overflow-hidden px-[10vw] h-[8vh] flex items-center justify-between border-b border-main-black">
       <div>
         <a href="/" aria-label="home page">
           <img src={logo} alt="logo" width={250} />
@@ -21,8 +19,11 @@ export default function Header() {
       <div>
         <label className="cursor-pointer relative inline-block align-middle w-12 h-6">
           <input
-            checked={checked}
-            onChange={() => setChecked(!checked)}
+            checked={theme === "dark"}
+            onChange={() => {
+              if (theme === "light") setTheme("dark");
+              else setTheme("light");
+            }}
             type="checkbox"
             name="dark mode switch"
             className="w-0 h-0 peer"
@@ -60,3 +61,8 @@ export default function Header() {
     </header>
   );
 }
+
+Header.propTypes = {
+  theme: PropTypes.string,
+  setTheme: PropTypes.func,
+};
