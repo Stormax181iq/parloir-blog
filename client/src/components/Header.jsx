@@ -64,6 +64,5 @@ export default function Header({ toggleTheme }) {
 }
 
 Header.propTypes = {
-  theme: PropTypes.string,
   toggleTheme: PropTypes.func,
 };
