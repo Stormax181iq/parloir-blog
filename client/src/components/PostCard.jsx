@@ -16,7 +16,7 @@ export default function PostCard({
     case "lg":
       return (
         <div className="flex items-center">
-          <img src={imgSrc} alt="" className="w-1/3 h-48" />
+          <img src={imgSrc} alt="" className="w-1/3 h-48 rounded-xl" />
           <div className="flex flex-col m-4 justify-between w-2/3">
             <div className="flex">
               <p>{timeOfPublication}</p>
