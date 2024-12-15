@@ -50,7 +50,7 @@ export default function Home() {
             <CategoryButton size="lg">Sport</CategoryButton>
           </div>
           <h1 className="text-3xl font-h my-4">Recent posts</h1>
-          <div className="mb-8 pb-8 border-b border-main-black/10">
+          <div className="mb-8 pb-8 border-b border-main-black/10 dark:border-main-white/40">
             <PostCard
               title="Will Deno2 overtake Node.js ?"
               description="For years, we’ve been using Node.js for the backend …"
@@ -60,7 +60,7 @@ export default function Home() {
               imgSrc="https://picsum.photos/800/201"
             />
           </div>
-          <div className="mb-8 pb-8 border-b border-main-black/10">
+          <div className="mb-8 pb-8 border-b border-main-black/10 dark:border-main-white/40">
             <PostCard
               title="How to type fast (100 words per minute)"
               description="I spent too much time trying to improve my typing speed by doing the wrong things …"
@@ -90,7 +90,7 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <div className="ml-8 pl-8 border-l border-main-black">
+        <div className="ml-8 pl-8 border-l border-main-black dark:border-main-white">
           <h1 className="text-3xl font-h mb-4">Most popular</h1>
           <PostCard
             title="A journey in Alès"

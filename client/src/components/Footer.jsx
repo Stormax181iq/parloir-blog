@@ -2,7 +2,7 @@ import authorImg from "../assets/author.jpg";
 
 export default function Footer() {
   return (
-    <footer className="mt-auto mx-4 mb-4 border-t border-main-black flex justify-between items-center">
+    <footer className="mt-auto px-4 mb-4 pt-1 border-t border-main-black flex justify-between items-center dark:border-main-white">
       <div className="flex flex-col items-end w-44">
         <p>Made with ❤️ by</p>
         <a
