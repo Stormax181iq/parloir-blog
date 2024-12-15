@@ -7,7 +7,7 @@ export function useTheme() {
 
   useEffect(() => {
     const html = document.documentElement;
-    if (theme === "dark" && !html.classList.contains("dark")) {
+    if (theme === "dark") {
       html.classList.add("dark");
     } else {
       html.classList.remove("dark");
