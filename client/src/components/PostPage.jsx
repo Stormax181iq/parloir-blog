@@ -120,7 +120,7 @@ export default function PostPage({
             />
             <div className="flex items-start">
               <div>
-                <p className="font-h text-3xl mt-2">
+                <p className="font-h text-4xl mt-2">
                   Written by{" "}
                   <a href={`/users/${author.username}`} className="underline">
                     {author.username}
@@ -129,10 +129,10 @@ export default function PostPage({
                 <p className="text-xl">{author.followersCount} followers</p>
                 <p>{author.description}</p>
               </div>
-              <MainButton className="px-2 py-1 mt-2 ml-4">Follow</MainButton>
+              <MainButton className="px-2 py-1 mt-3 ml-4">Follow</MainButton>
             </div>
             <div>
-              <h2 className="text-2xl mt-4 mb-2">
+              <h2 className="font-h text-3xl mt-4 mb-2">
                 More from {author.username}
               </h2>
               <div className="grid grid-cols-2 grid-rows-2 gap-4">
