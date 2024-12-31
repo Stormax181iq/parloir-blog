@@ -15,7 +15,7 @@ export default function Header({ toggleTheme }) {
   const theme = useContext(ThemeContext);
   const isLoggedIn = false;
   return (
-    <header className="sticky top-0 z-50 overflow-hidden px-[10vw] h-[8vh] flex items-center justify-between border-b border-main-black bg-second dark:bg-main-black dark:border-main-white">
+    <header className="sticky top-0 z-50 flex h-[8vh] items-center justify-between overflow-hidden border-b border-main-black bg-second px-[10vw] dark:border-main-white dark:bg-main-black">
       <div>
         <a href="/" aria-label="home page">
           <img
@@ -26,28 +26,21 @@ export default function Header({ toggleTheme }) {
         </a>
       </div>
       <div>
-        <label className="cursor-pointer relative inline-block align-middle w-12 h-6">
+        <label className="relative inline-block h-6 w-12 cursor-pointer align-middle">
           <input
             checked={theme === "dark"}
             onChange={toggleTheme}
             type="checkbox"
             name="dark mode switch"
-            className="w-0 h-0 peer"
+            className="peer h-0 w-0"
           />
-          <span
-            className="absolute top-0 bottom-0 right-0 left-0 bg-main-white rounded-2xl
-            before:absolute before:bg-accent before:h-5 before:w-5 before:left-0 before:top-1/2 before:-translate-y-1/2 before:rounded-xl
-            peer-checked:before:translate-x-[1.6rem] before:duration-200 peer-checked:bg-main-black peer-focus:shadow-md
-            dark:border dark:border-main-white"
-          ></span>
+          <span className="absolute bottom-0 left-0 right-0 top-0 rounded-2xl bg-main-white before:absolute before:left-0 before:top-1/2 before:h-5 before:w-5 before:-translate-y-1/2 before:rounded-xl before:bg-accent before:duration-200 peer-checked:bg-main-black peer-checked:before:translate-x-[1.6rem] peer-focus:shadow-md dark:border dark:border-main-white"></span>
           <FontAwesomeIcon
-            className="fa-sm text-main-black absolute inline-block peer-checked:opacity-0 opacity-100 right-1.5 
-            top-1/2 -translate-y-1/2 duration-150"
+            className="fa-sm absolute right-1.5 top-1/2 inline-block -translate-y-1/2 text-main-black opacity-100 duration-150 peer-checked:opacity-0"
             icon={faSun}
           />
           <FontAwesomeIcon
-            className="fa-sm text-main-white opacity-0 peer-checked:opacity-100 absolute inline-block top-1/2 
-            -translate-y-1/2 left-1.5 duration-150"
+            className="fa-sm absolute left-1.5 top-1/2 inline-block -translate-y-1/2 text-main-white opacity-0 duration-150 peer-checked:opacity-100"
             icon={faMoon}
           />
         </label>
@@ -60,7 +53,7 @@ export default function Header({ toggleTheme }) {
             <MainButton
               isLink={true}
               link="/register"
-              className="py-2 px-3 mx-2"
+              className="mx-2 px-3 py-2"
             >
               Register
             </MainButton>

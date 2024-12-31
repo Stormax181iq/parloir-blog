@@ -2,8 +2,8 @@ import authorImg from "../assets/author.jpg";
 
 export default function Footer() {
   return (
-    <footer className="mt-auto px-4 mb-4 pt-1 border-t border-main-black flex justify-between items-center dark:border-main-white">
-      <div className="flex flex-col items-end w-44">
+    <footer className="mb-4 mt-auto flex items-center justify-between border-t border-main-black px-4 pt-1 dark:border-main-white">
+      <div className="flex w-44 flex-col items-end">
         <p>Made with ❤️ by</p>
         <a
           className="flex items-center underline"
@@ -12,12 +12,12 @@ export default function Footer() {
           <img
             src={authorImg}
             alt="The author of the website"
-            className="rounded-full w-14 mx-2"
+            className="mx-2 w-14 rounded-full"
           />
           <p>Stormax181iq</p>
         </a>
       </div>
-      <div className="grid grid-flow-col grid-rows-4 grid-cols-2 gap-x-8 mr-8">
+      <div className="mr-8 grid grid-flow-col grid-cols-2 grid-rows-4 gap-x-8">
         <p>Links</p>
         <a className="underline" href="/">
           Homepage

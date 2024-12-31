@@ -29,11 +29,11 @@ export default function PostCard({
               src={imgSrc}
               alt=""
               className={
-                "rounded-xl" + (imgTop ? " w-full h-36" : " w-1/3 h-48")
+                "rounded-xl" + (imgTop ? " h-36 w-full" : " h-48 w-1/3")
               }
             />
           )}
-          <div className="flex flex-col m-4 justify-between w-full pr-12">
+          <div className="m-4 flex w-full flex-col justify-between pr-12">
             <div className="flex">
               <p>{timeOfPublication}</p>
               {category && (
@@ -47,9 +47,9 @@ export default function PostCard({
             </div>
             {author && <p>{author}</p>}
             {displayButton ? (
-              <h2 className="text-2xl font-h text-justify">{title}</h2>
+              <h2 className="text-justify font-h text-2xl">{title}</h2>
             ) : (
-              <h2 className="text-2xl font-h underline text-justify w-full">
+              <h2 className="w-full text-justify font-h text-2xl underline">
                 <a href="#">{title}</a>
               </h2>
             )}
@@ -58,7 +58,7 @@ export default function PostCard({
               <MainButton
                 isLink={true}
                 link="#"
-                className="py-2 px-3 w-28 text-center"
+                className="w-28 px-3 py-2 text-center"
               >
                 Read More
               </MainButton>
@@ -77,12 +77,12 @@ export default function PostCard({
               <img
                 src={imgSrc}
                 alt=""
-                className="rounded-full mt-1 mr-2 h-12 w-12"
+                className="mr-2 mt-1 h-12 w-12 rounded-full"
               />
             )}
             <div>
               <a href="/users/john-doe/posts/a-journey-in-ales-194834">
-                <h2 className="text-xl font-h underline mt-1">{title}</h2>
+                <h2 className="mt-1 font-h text-xl underline">{title}</h2>
               </a>
               <p>
                 {author} {timeOfPublication}
