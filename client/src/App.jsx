@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import PostPage from "./components/PostPage";
+import UserPage from "./components/UserPage"
 
 import ThemeContext from "./context/ThemeContext";
 import { useTheme } from "./hooks/useTheme";
@@ -43,7 +44,15 @@ function App() {
                   categories={["Travel", "Sport"]}
                 />
               }
-            ></Route>
+            />
+            <Route 
+              path="user"
+              element={
+                <UserPage 
+
+                />
+              }
+              />
           </Routes>
           <Footer />
         </div>

@@ -24,6 +24,8 @@ export default function PostPage({
   timeOfPublication,
   categories,
 }) {
+  const isLoggedIn = false;
+
   return (
     <>
       <div className="mx-[20vw] mt-8 border-l border-main-black pl-4">
@@ -189,13 +191,21 @@ export default function PostPage({
             <h2 className="mb-2 font-h text-3xl">
               Responses ({reactions.comments})
             </h2>
-            <textarea
-              id="comment"
-              name="comment"
-              placeholder="What are your thoughts?"
-              className="field-sizing-content w-1/2 resize-none rounded-2xl border border-main-black p-2"
-            ></textarea>
-            <MainButton className="mt-2 px-4 py-2">Send</MainButton>
+            {
+              isLoggedIn ? (
+                <>
+                  <textarea
+                    id="comment"
+                    name="comment"
+                    placeholder="What are your thoughts?"
+                    className="field-sizing-content w-1/2 resize-none rounded-2xl border border-main-black p-2"
+                    ></textarea>
+                  <MainButton className="mt-2 px-4 py-2">Send</MainButton>
+                </>
+              ) : (
+                <p>Please sign in to share your thoughts !</p>
+              )
+            }
           </div>
           <div className="py-4">
             <select
@@ -206,7 +216,12 @@ export default function PostPage({
               <option value="relevant">Most relevant</option>
               <option value="recent">Most recent</option>
             </select>
-            <Comment text="this is a comment" />
+            <Comment 
+              text="this is a comment"
+              authorName="tester"
+              likes={3}
+              responses={1}
+              />
           </div>
         </div>
       </div>
