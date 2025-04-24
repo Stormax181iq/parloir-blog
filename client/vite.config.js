@@ -9,4 +9,8 @@ export default defineConfig({
     "@fortawesome/free-regular-svg-icons",
     "@fortawesome/react-fontawesome",
   ],
+  server: {
+    host: "localhost",
+    port: 5173,
+  },
 });

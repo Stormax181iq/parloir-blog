@@ -4,18 +4,48 @@ import MainButton from "./MainButton";
 import CategoryButton from "./CategoryButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
+import apiService from "../api/apiService";
+import { useEffect, useState } from "react";
 
 export default function PostCard({
   title,
-  description,
-  author,
+  content,
+  authorId,
   timeOfPublication,
-  category,
+  categoryId,
   imgSrc,
   size = "lg",
   displayButton = true,
   imgTop = false,
 }) {
+  const [author, setAuthor] = useState("");
+  const [category, setCategory] = useState("");
+  useEffect(() => {
+    async function fetchAuthor() {
+      try {
+        const username = await apiService.getUsernameById(authorId);
+        setAuthor(username);
+      } catch (error) {
+        console.error("Failed to fetch author", error);
+      }
+    }
+
+    fetchAuthor();
+  }, [authorId]);
+
+  useEffect(() => {
+    async function fetchCategory() {
+      try {
+        const name = await apiService.getCategoryNameById(categoryId);
+        setCategory(name);
+      } catch (error) {
+        console.error("Failed to fetch category", error);
+      }
+    }
+
+    fetchCategory();
+  }, [categoryId]);
+
   switch (size) {
     case "lg":
       return (
@@ -53,7 +83,7 @@ export default function PostCard({
                 <a href="#">{title}</a>
               </h2>
             )}
-            <p className="mb-4">{description}</p>
+            <p className="mb-4">{content.slice(0, 150)}…</p>
             {displayButton && (
               <MainButton
                 isLink={true}
@@ -96,10 +126,10 @@ export default function PostCard({
 
 PostCard.propTypes = {
   title: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  author: PropTypes.string,
+  content: PropTypes.string,
+  authorId: PropTypes.number,
   timeOfPublication: PropTypes.string,
-  category: PropTypes.string,
+  categoryId: PropTypes.number,
   imgSrc: PropTypes.string,
   size: PropTypes.string,
   reactions: PropTypes.shape({
