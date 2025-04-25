@@ -7,8 +7,10 @@ const apiService = {
     const data = await response.json();
     return data;
   },
-  getRecentPosts: async () => {
-    const response = await fetch(`${API_URL}/posts/recent`);
+  getRecentPosts: async (limit = null) => {
+    const response = await fetch(
+      `${API_URL}/posts?filter=recent${limit ? "&limit=" + limit : ""}`,
+    );
 
     const data = await response.json();
     return data;
@@ -26,6 +28,22 @@ const apiService = {
 
     const data = await response.json();
     return data.name;
+  },
+  getEditorsChoicePosts: async (limit = null) => {
+    const response = await fetch(
+      `${API_URL}/posts?filter=editors${limit ? "&limit=" + limit : ""}`,
+    );
+
+    const data = await response.json();
+    return data;
+  },
+  getPopularPosts: async (limit = null) => {
+    const response = await fetch(
+      `${API_URL}/posts?filter=popular${limit ? "&limit=" + limit : ""}`,
+    );
+
+    const data = await response.json();
+    return data;
   },
 };
 

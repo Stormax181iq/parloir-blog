@@ -74,22 +74,55 @@ app.get("/api/categories", async (req, res) => {
   }
 });
 
-app.get("/api/posts/recent", async (req, res) => {
+app.get("/api/posts", async (req, res) => {
   // Retrieve recent posts from the database
-  const posts = await db.query(
-    "SELECT id, title, content, user_id, created_at, category_id, img_src FROM posts ORDER BY created_at DESC"
-  );
+  const allowedFilters = ["", "recent", "editors", "popular"];
+  const filter = req.query?.filter;
+  const limit = req.query?.limit || 0;
 
-  return res.status(200).json(posts.rows);
-});
-
-app.get("/api/users", async (req, res) => {
-  // Get all users’ id and username from the database
   try {
-    const users = await db.query("SELECT id, username FROM users");
-    return res.status(200).json(users.rows);
+    if (!Number.isInteger(Number(limit)) || Number(limit) < 0) {
+      return res
+        .status(400)
+        .json({ error: "The specified limit is not a positive integer" });
+    }
+
+    if (!allowedFilters.includes(filter)) {
+      return res
+        .status(400)
+        .json({ error: "The specified filter is not valid" });
+    }
+
+    let query =
+      "SELECT id, title, content, user_id, created_at, category_id, img_src FROM posts";
+    let params = [];
+
+    switch (filter) {
+      case "recent":
+        query += " ORDER BY created_at DESC";
+        break;
+      case "editors":
+        query += " WHERE id IN (SELECT post_id FROM editors_choice)";
+        break;
+      case "popular":
+        query += " ORDER BY likes DESC";
+        break;
+    }
+
+    if (limit > 0) {
+      query += " LIMIT $1";
+      params.push(limit);
+    }
+
+    const posts = await db.query(query, params);
+
+    if (posts.rowCount > 0) {
+      return res.status(200).json(posts.rows);
+    } else {
+      return res.status(404).json({ error: "No post found" });
+    }
   } catch (error) {
-    console.error("Failed to get users", error);
+    console.error("Failed to get posts", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });

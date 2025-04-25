@@ -9,9 +9,16 @@ import homeImg from "../assets/homeWomanArt.png";
 import apiService from "../api/apiService";
 
 export default function Home() {
+  const recentPostsPerPage = 3;
+  const recentPostsPages = 3;
+  const editorsChoicePostsCount = 3;
+  const popularPostsCount = 3;
   const popularRef = useRef(null);
   const [categories, setCategories] = useState([]);
   const [recentPosts, setRecentPosts] = useState([]);
+  const [editorsChoicePosts, setEditorsChoicePosts] = useState([]);
+  const [popularPosts, setPopularPosts] = useState([]);
+  const [currentRecentPostsPage, setCurrentRecentPostsPage] = useState(0);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -25,16 +32,60 @@ export default function Home() {
 
     const fetchRecentPosts = async () => {
       try {
-        const data = await apiService.getRecentPosts();
+        const data = await apiService.getRecentPosts(
+          recentPostsPerPage * recentPostsPages,
+        );
         setRecentPosts(data);
       } catch (error) {
         console.error("Failed to fetch recent posts", error);
       }
     };
 
+    const fetchEditorsChoicePosts = async () => {
+      try {
+        const data = await apiService.getEditorsChoicePosts(
+          editorsChoicePostsCount,
+        );
+        setEditorsChoicePosts(data);
+      } catch (error) {
+        console.error("Failed to fetch editor’s choice posts", error);
+      }
+    };
+
+    const fetchPopularPosts = async () => {
+      try {
+        const data = await apiService.getPopularPosts(popularPostsCount);
+        setPopularPosts(data);
+      } catch (error) {
+        console.error("Failed to fetch popular posts", error);
+      }
+    };
+
     fetchCategories();
     fetchRecentPosts();
+    fetchEditorsChoicePosts();
+    fetchPopularPosts();
   }, []);
+
+  function generateRecentPostsPagination() {
+    const elements = [];
+    for (let i = 0; i < recentPostsPages; i++) {
+      if (i === currentRecentPostsPage && i === recentPostsPages - 1) {
+        elements.push(<b>{i + 1}</b>);
+      } else if (i === currentRecentPostsPage) {
+        elements.push(
+          <>
+            <b>{i + 1}</b> -{" "}
+          </>,
+        );
+      } else if (i === recentPostsPages - 1) {
+        elements.push(<>{i + 1}</>);
+      } else {
+        elements.push(<>{i + 1} - </>);
+      }
+    }
+    return elements;
+  }
 
   return (
     <>
@@ -80,34 +131,63 @@ export default function Home() {
           </div>
           <h1 className="my-4 font-h text-3xl">Recent posts</h1>
           <div className="mb-8 border-b border-main-black/10 pb-8 dark:border-main-white/40">
-            {recentPosts.map((post) => {
-              return (
-                <PostCard
-                  key={post.id}
-                  title={post.title}
-                  content={post.content}
-                  authorId={post.user_id}
-                  timeOfPublication={post.created_at}
-                  categoryId={post.category_id}
-                  imgSrc={post.img_src}
-                />
-              );
+            {recentPosts.map((post, i) => {
+              const startIndex = currentRecentPostsPage * recentPostsPerPage;
+              const endIndex = startIndex + recentPostsPerPage;
+              if (i >= startIndex && i < endIndex) {
+                return (
+                  <PostCard
+                    key={post.id}
+                    title={post.title}
+                    content={post.content}
+                    authorId={post.user_id}
+                    timeOfPublication={post.created_at}
+                    categoryId={post.category_id}
+                    imgSrc={post.img_src}
+                  />
+                );
+              }
             })}
           </div>
           <div className="flex w-full items-center justify-between pt-4">
-            <button className="w-28 rounded-full bg-third p-2 text-main-white">
+            <button
+              onClick={() =>
+                setCurrentRecentPostsPage(
+                  Math.max(0, currentRecentPostsPage - 1),
+                )
+              }
+              className="w-28 rounded-full bg-third p-2 text-main-white"
+            >
               Previous
             </button>
-            <p>
-              <b>1</b> - 2 - 3
-            </p>
-            <button className="w-28 rounded-full bg-third p-2 text-main-white">
+            <p>{generateRecentPostsPagination()}</p>
+            <button
+              onClick={() =>
+                setCurrentRecentPostsPage(
+                  Math.min(recentPostsPages - 1, currentRecentPostsPage + 1),
+                )
+              }
+              className="w-28 rounded-full bg-third p-2 text-main-white"
+            >
               Next
             </button>
           </div>
         </div>
         <div className="ml-8 border-l border-main-black pl-8 dark:border-main-white">
           <h1 className="mb-4 font-h text-3xl">Most popular</h1>
+          {popularPosts.map((post) => {
+            return (
+              <PostCard
+                key={post.id}
+                title={post.title}
+                authorId={post.user_id}
+                timeOfPublication={post.created_at}
+                categoryId={post.category_id}
+                imgSrc={post.img_src}
+                size="sm"
+              />
+            );
+          })}
           {/* <PostCard
             title="A journey in Alès"
             author="John Doe"
@@ -145,7 +225,22 @@ export default function Home() {
           /> */}
 
           <h1 className="my-4 font-h text-3xl">Editor’s choice</h1>
-          {/* <PostCard
+          {
+            editorsChoicePosts.map((post) => {
+              return (
+                <PostCard
+                  key={post.id}
+                  title={post.title}
+                  content={post.content}
+                  authorId={post.user_id}
+                  timeOfPublication={post.created_at}
+                  categoryId={post.category_id}
+                  imgSrc={post.img_src}
+                  size="sm"
+                />
+              );
+            })
+            /* <PostCard
             title="How I broke 20’ on the 5k"
             author="runner passion"
             timeOfPublication="13/12/2024"
@@ -168,7 +263,8 @@ export default function Home() {
             category="Music"
             imgSrc="https://picsum.photos/60/70"
             size="sm"
-          /> */}
+          /> */
+          }
         </div>
       </div>
     </>
