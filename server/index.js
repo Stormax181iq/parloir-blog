@@ -93,8 +93,23 @@ app.get("/api/posts", async (req, res) => {
         .json({ error: "The specified filter is not valid" });
     }
 
-    let query =
-      "SELECT id, title, content, user_id, created_at, category_id, img_src FROM posts";
+    let query = `
+      SELECT
+        posts.id,
+        posts.title,
+        posts.content,
+        users.username AS author,
+        posts.created_at,
+        categories.name AS category,
+        posts.img_src,
+        posts.likes
+      FROM
+        posts
+      JOIN
+        users ON users.id = posts.user_id
+      JOIN
+        categories ON categories.id = posts.category_id
+    `;
     let params = [];
 
     switch (filter) {
@@ -102,7 +117,7 @@ app.get("/api/posts", async (req, res) => {
         query += " ORDER BY created_at DESC";
         break;
       case "editors":
-        query += " WHERE id IN (SELECT post_id FROM editors_choice)";
+        query += " WHERE posts.id IN (SELECT post_id FROM editors_choice)";
         break;
       case "popular":
         query += " ORDER BY likes DESC";

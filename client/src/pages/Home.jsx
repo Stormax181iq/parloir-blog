@@ -140,9 +140,9 @@ export default function Home() {
                     key={post.id}
                     title={post.title}
                     content={post.content}
-                    authorId={post.user_id}
+                    author={post.author}
                     timeOfPublication={post.created_at}
-                    categoryId={post.category_id}
+                    category={post.category}
                     imgSrc={post.img_src}
                   />
                 );
@@ -156,7 +156,8 @@ export default function Home() {
                   Math.max(0, currentRecentPostsPage - 1),
                 )
               }
-              className="w-28 rounded-full bg-third p-2 text-main-white"
+              disabled={currentRecentPostsPage === 0}
+              className="w-28 rounded-full bg-third p-2 text-main-white disabled:bg-gray-400"
             >
               Previous
             </button>
@@ -167,7 +168,8 @@ export default function Home() {
                   Math.min(recentPostsPages - 1, currentRecentPostsPage + 1),
                 )
               }
-              className="w-28 rounded-full bg-third p-2 text-main-white"
+              disabled={currentRecentPostsPage === recentPostsPages - 1}
+              className="disabled:bg-third:0.7 w-28 rounded-full bg-third p-2 text-main-white disabled:bg-gray-400"
             >
               Next
             </button>
@@ -180,9 +182,9 @@ export default function Home() {
               <PostCard
                 key={post.id}
                 title={post.title}
-                authorId={post.user_id}
+                author={post.author}
                 timeOfPublication={post.created_at}
-                categoryId={post.category_id}
+                category={post.category}
                 imgSrc={post.img_src}
                 size="sm"
               />
@@ -232,9 +234,9 @@ export default function Home() {
                   key={post.id}
                   title={post.title}
                   content={post.content}
-                  authorId={post.user_id}
+                  author={post.author}
                   timeOfPublication={post.created_at}
-                  categoryId={post.category_id}
+                  category={post.category}
                   imgSrc={post.img_src}
                   size="sm"
                 />

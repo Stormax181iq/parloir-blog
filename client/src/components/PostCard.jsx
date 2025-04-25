@@ -4,48 +4,30 @@ import MainButton from "./MainButton";
 import CategoryButton from "./CategoryButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
-import apiService from "../api/apiService";
-import { useEffect, useState } from "react";
 
 export default function PostCard({
   title,
   content,
-  authorId,
+  author,
   timeOfPublication,
-  categoryId,
+  category,
   imgSrc,
   size = "lg",
   displayButton = true,
   imgTop = false,
 }) {
-  const [author, setAuthor] = useState("");
-  const [category, setCategory] = useState("");
-  useEffect(() => {
-    async function fetchAuthor() {
-      try {
-        const username = await apiService.getUsernameById(authorId);
-        setAuthor(username);
-      } catch (error) {
-        console.error("Failed to fetch author", error);
-      }
-    }
+  function formatDate(date) {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
 
-    fetchAuthor();
-  }, [authorId]);
+    const pad = (num) => num.toString().padStart(2, "0");
 
-  useEffect(() => {
-    async function fetchCategory() {
-      try {
-        const name = await apiService.getCategoryNameById(categoryId);
-        setCategory(name);
-      } catch (error) {
-        console.error("Failed to fetch category", error);
-      }
-    }
-
-    fetchCategory();
-  }, [categoryId]);
-
+    return `${pad(day)}/${pad(month)}/${year} ${pad(hours)}:${pad(minutes)}`;
+  }
+  const publicationTime = formatDate(new Date(timeOfPublication));
   switch (size) {
     case "lg":
       return (
@@ -65,7 +47,7 @@ export default function PostCard({
           )}
           <div className="m-4 flex w-full flex-col justify-between pr-12">
             <div className="flex">
-              <p>{timeOfPublication}</p>
+              <p>{publicationTime}</p>
               {category && (
                 <div className="ml-2">
                   <CategoryButton size="sm">{category}</CategoryButton>
@@ -115,7 +97,7 @@ export default function PostCard({
                 <h2 className="mt-1 font-h text-xl underline">{title}</h2>
               </a>
               <p>
-                {author} {timeOfPublication}
+                {author} {publicationTime}
               </p>
             </div>
           </div>
@@ -127,9 +109,9 @@ export default function PostCard({
 PostCard.propTypes = {
   title: PropTypes.string.isRequired,
   content: PropTypes.string,
-  authorId: PropTypes.number,
+  author: PropTypes.string,
   timeOfPublication: PropTypes.string,
-  categoryId: PropTypes.number,
+  category: PropTypes.string,
   imgSrc: PropTypes.string,
   size: PropTypes.string,
   reactions: PropTypes.shape({
