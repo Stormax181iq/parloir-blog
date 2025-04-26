@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 
 export default function PostCard({
+  postId,
   title,
   content,
   author,
@@ -62,14 +63,14 @@ export default function PostCard({
               <h2 className="text-justify font-h text-2xl">{title}</h2>
             ) : (
               <h2 className="w-full text-justify font-h text-2xl underline">
-                <a href="#">{title}</a>
+                <a href={"/posts/" + title + "-" + postId}>{title}</a>
               </h2>
             )}
             <p className="mb-4">{content.slice(0, 150)}…</p>
             {displayButton && (
               <MainButton
                 isLink={true}
-                link="#"
+                link={"/posts/" + title + "-" + postId}
                 className="w-28 px-3 py-2 text-center"
               >
                 Read More
@@ -93,7 +94,7 @@ export default function PostCard({
               />
             )}
             <div>
-              <a href="/users/john-doe/posts/a-journey-in-ales-194834">
+              <a href={"/posts/" + title + "-" + postId}>
                 <h2 className="mt-1 font-h text-xl underline">{title}</h2>
               </a>
               <p>
@@ -107,17 +108,14 @@ export default function PostCard({
 }
 
 PostCard.propTypes = {
+  postId: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string,
-  author: PropTypes.string,
-  timeOfPublication: PropTypes.string,
+  author: PropTypes.string.isRequired,
+  timeOfPublication: PropTypes.string.isRequired,
   category: PropTypes.string,
   imgSrc: PropTypes.string,
   size: PropTypes.string,
-  reactions: PropTypes.shape({
-    likes: PropTypes.number,
-    comments: PropTypes.number,
-  }),
   displayButton: PropTypes.bool,
   imgTop: PropTypes.bool,
 };

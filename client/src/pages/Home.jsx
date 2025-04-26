@@ -138,6 +138,7 @@ export default function Home() {
                 return (
                   <PostCard
                     key={post.id}
+                    postId={post.id}
                     title={post.title}
                     content={post.content}
                     author={post.author}
@@ -181,6 +182,7 @@ export default function Home() {
             return (
               <PostCard
                 key={post.id}
+                postId={post.id}
                 title={post.title}
                 author={post.author}
                 timeOfPublication={post.created_at}
@@ -190,83 +192,23 @@ export default function Home() {
               />
             );
           })}
-          {/* <PostCard
-            title="A journey in Alès"
-            author="John Doe"
-            timeOfPublication="27/07/2024"
-            category="Travel"
-            size="sm"
-          />
-          <PostCard
-            title="A journey in Alès"
-            author="John Doe"
-            timeOfPublication="27/07/2024"
-            category="Travel"
-            size="sm"
-          />
-          <PostCard
-            title="A journey in Alès"
-            author="John Doe"
-            timeOfPublication="27/07/2024"
-            category="Travel"
-            size="sm"
-          />
-          <PostCard
-            title="A journey in Alès"
-            author="John Doe"
-            timeOfPublication="27/07/2024"
-            category="Travel"
-            size="sm"
-          />
-          <PostCard
-            title="A journey in Alès"
-            author="John Doe"
-            timeOfPublication="27/07/2024"
-            category="Travel"
-            size="sm"
-          /> */}
 
           <h1 className="my-4 font-h text-3xl">Editor’s choice</h1>
-          {
-            editorsChoicePosts.map((post) => {
-              return (
-                <PostCard
-                  key={post.id}
-                  title={post.title}
-                  content={post.content}
-                  author={post.author}
-                  timeOfPublication={post.created_at}
-                  category={post.category}
-                  imgSrc={post.img_src}
-                  size="sm"
-                />
-              );
-            })
-            /* <PostCard
-            title="How I broke 20’ on the 5k"
-            author="runner passion"
-            timeOfPublication="13/12/2024"
-            category="Sport"
-            imgSrc="https://picsum.photos/120/120"
-            size="sm"
-          />
-          <PostCard
-            title="How to have style"
-            author="billiejogging"
-            timeOfPublication="24/08/2024"
-            category="Fashion"
-            imgSrc="https://picsum.photos/70/70"
-            size="sm"
-          />
-          <PostCard
-            title="Play the piano better"
-            author="seratte"
-            timeOfPublication="24/08/2024"
-            category="Music"
-            imgSrc="https://picsum.photos/60/70"
-            size="sm"
-          /> */
-          }
+          {editorsChoicePosts.map((post) => {
+            return (
+              <PostCard
+                key={post.id}
+                postId={post.id}
+                title={post.title}
+                content={post.content}
+                author={post.author}
+                timeOfPublication={post.created_at}
+                category={post.category}
+                imgSrc={post.img_src}
+                size="sm"
+              />
+            );
+          })}
         </div>
       </div>
     </>
