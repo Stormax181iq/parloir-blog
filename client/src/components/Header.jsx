@@ -10,10 +10,19 @@ import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 
 import logo from "../assets/logo.png";
 import darkModeLogo from "../assets/logo-dm.png";
+import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export default function Header({ toggleTheme }) {
   const theme = useContext(ThemeContext);
-  const isLoggedIn = false;
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+    await logout();
+    navigate("/");
+  }
+
   return (
     <header className="sticky top-0 z-50 flex h-[8vh] items-center justify-between overflow-hidden border-b border-main-black bg-second px-[10vw] dark:border-main-white dark:bg-main-black">
       <div>
@@ -46,8 +55,12 @@ export default function Header({ toggleTheme }) {
         </label>
         <HeaderLink link="/contact">Contact</HeaderLink>
         <HeaderLink link="/about">About</HeaderLink>
-        <HeaderLink link={isLoggedIn ? "/write" : "/login"}>Write</HeaderLink>
-        {!isLoggedIn && (
+        <HeaderLink link={isAuthenticated ? "/write" : "/login"}>
+          Write
+        </HeaderLink>
+        {isAuthenticated ? (
+          <button onClick={handleLogout}>Logout</button>
+        ) : (
           <>
             <HeaderLink link="/login">Login</HeaderLink>
             <MainButton

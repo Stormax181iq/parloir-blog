@@ -55,7 +55,6 @@ const authController = {
         return res.status(201).json({
           id: id,
           username: username,
-          token,
         });
       } else {
         return res.status(401).json({ error: "Login failed: wrong password" });
@@ -63,6 +62,47 @@ const authController = {
     } catch (error) {
       console.error("Failed to login user: ", error);
       return res.status(500).json({ error: "Internal server error" });
+    }
+  },
+  check: async (req, res) => {
+    try {
+      const { token } = req.cookies;
+
+      let decoded;
+      try {
+        decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      } catch (verifyError) {
+        if (verifyError.name === "TokenExpiredError") {
+          return res.status(401).json({ error: "Token has expired" });
+        } else {
+          return res.status(403).json({ error: "Invalid Token" });
+        }
+      }
+
+      const user = await db.query(
+        "SELECT id, username FROM users WHERE id = $1",
+        [decoded.userId]
+      );
+
+      if (user.rowCount > 0) {
+        return res.status(200).json({ user: user.rows[0] });
+      } else {
+        return res
+          .status(404)
+          .json({ error: "Couldn’t find the user with this token" });
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+  logout: (req, res) => {
+    try {
+      res.clearCookie("token");
+      return res.status(200).send();
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Internal Server Error" });
     }
   },
 };

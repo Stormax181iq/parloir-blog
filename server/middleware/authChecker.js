@@ -1,7 +1,8 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const db = require("../config/db");
 
-const authChecker = (req, res, next) => {
+const authChecker = async (req, res, next) => {
   try {
     const token = req.cookies.token;
 
@@ -11,8 +12,15 @@ const authChecker = (req, res, next) => {
 
     try {
       const userDecoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-      req.user = userDecoded;
-      next();
+      const userData = await db.query("SELECT * FROM users WHERE id = $1", [
+        userDecoded.userId,
+      ]);
+      if (userData.rowCount > 0) {
+        req.user = userDecoded;
+        next();
+      } else {
+        return res.status(404).json({ error: "Invalid token, user not found" });
+      }
     } catch (verifyError) {
       if (verifyError) {
         if (verifyError.name === "TokenExpiredError") {

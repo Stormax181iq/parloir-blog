@@ -5,6 +5,7 @@ export default function MainButton({
   isLink,
   link,
   className,
+  type,
   children,
 }) {
   return (
@@ -26,6 +27,7 @@ export default function MainButton({
             className
           }
           onClick={onClick}
+          type={type}
         >
           {children}
         </button>
@@ -39,5 +41,6 @@ MainButton.propTypes = {
   isLink: PropTypes.bool,
   link: PropTypes.string,
   className: PropTypes.string,
+  type: PropTypes.string,
   children: PropTypes.node,
 };
