@@ -21,26 +21,35 @@ export default function Register() {
     }
   }
   return (
-    <>
-      <h1>Register</h1>
+    <div className="m-8 mx-auto rounded-lg border border-main-black p-4 dark:border-main-white dark:text-main-black">
+      <h1 className="text-center font-h text-3xl">Register</h1>
       {error && <p>Error occurred: {error}</p>}
-      <form onSubmit={handleRegisterSubmit}>
+      <form
+        onSubmit={handleRegisterSubmit}
+        className="flex h-full flex-col items-center justify-around"
+      >
         <input
           type="text"
           name="username"
           id="username"
           placeholder="Username"
+          className="mt-2 rounded-lg p-2"
+          autoFocus
+          required
         />
         <input
           type="password"
           name="password"
           id="password"
           placeholder="Password"
+          className="mt-2 rounded-lg p-2"
+          autoComplete="off"
+          required
         />
-        <MainButton className="p-2" type="submit">
+        <MainButton className="mt-2 p-2" type="submit">
           Create your account !
         </MainButton>
       </form>
-    </>
+    </div>
   );
 }
