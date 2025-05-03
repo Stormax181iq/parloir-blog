@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import apiService from "../api/apiService";
+import authService from "../api/authService";
 import MainButton from "../components/MainButton";
 import { useState } from "react";
 
@@ -11,7 +11,7 @@ export default function Register() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData.entries());
-    const err = await apiService.register(data.username, data.password);
+    const err = await authService.register(data.username, data.password);
     if (err) {
       console.error(err);
       setError(err);
