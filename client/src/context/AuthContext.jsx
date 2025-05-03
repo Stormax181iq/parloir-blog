@@ -14,8 +14,10 @@ const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const verifyAuth = useCallback(async () => {
+    setLoading(true);
     const authResult = await authService.checkAuth();
     if (authResult.user) {
       setIsAuthenticated(true);
@@ -24,6 +26,7 @@ const AuthProvider = ({ children }) => {
       setIsAuthenticated(false);
       setUser(null);
     }
+    setLoading(false);
   }, []);
 
   const login = useCallback(
@@ -57,6 +60,10 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     verifyAuth();
   }, [verifyAuth]);
+
+  if (loading) {
+    return <div>Loading …</div>;
+  }
 
   return (
     <AuthContext.Provider value={providedValues}>
