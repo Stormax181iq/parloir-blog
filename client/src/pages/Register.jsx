@@ -5,13 +5,14 @@ import { useState } from "react";
 
 export default function Register() {
   const [error, setError] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const navigate = useNavigate();
 
   async function handleRegisterSubmit(event) {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData.entries());
-    const err = await authService.register(data.username, data.password);
+    const err = await authService.register(username, password, passwordConfirm);
     if (err) {
       setError(err);
     } else {
@@ -32,6 +33,8 @@ export default function Register() {
           name="username"
           id="username"
           placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           className="mt-2 rounded-lg p-2 dark:text-main-black"
           autoFocus
           required
@@ -41,6 +44,8 @@ export default function Register() {
           name="password"
           id="password"
           placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className="mt-2 rounded-lg p-2 dark:text-main-black"
           autoComplete="off"
           required
@@ -50,6 +55,8 @@ export default function Register() {
           name="passwordConfirm"
           id="passwordConfirm"
           placeholder="Confirm your password"
+          value={passwordConfirm}
+          onChange={(e) => setPasswordConfirm(e.target.value)}
           className="mt-2 rounded-lg p-2 dark:text-main-black"
           autoComplete="off"
           required

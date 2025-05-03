@@ -1,12 +1,12 @@
 const authService = {
-  register: async (username, password) => {
+  register: async (username, password, passwordConfirm) => {
     try {
       const response = await fetch(`/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password, passwordConfirm }),
       });
 
       if (!response.ok) {
