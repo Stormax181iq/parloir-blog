@@ -28,12 +28,11 @@ const AuthProvider = ({ children }) => {
 
   const login = useCallback(
     async (username, password) => {
-      const response = await authService.login(username, password);
-      if (response?.error) {
-        return false;
+      const err = await authService.login(username, password);
+      if (err) {
+        return err;
       } else {
         await verifyAuth();
-        return true;
       }
     },
     [verifyAuth],

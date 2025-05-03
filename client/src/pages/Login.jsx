@@ -14,11 +14,11 @@ export default function Login() {
       const formData = new FormData(event.target);
       const data = Object.fromEntries(formData.entries());
 
-      const success = await login(data.username, data.password);
-      if (success) {
-        navigate("/");
+      const err = await login(data.username, data.password);
+      if (err) {
+        setError(err);
       } else {
-        setError("Login failed");
+        navigate("/");
       }
     } catch (error) {
       console.error(error);

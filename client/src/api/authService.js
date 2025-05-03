@@ -6,15 +6,16 @@ const authService = {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username: username, password: password }),
+        body: JSON.stringify({ username, password }),
       });
 
       if (!response.ok) {
-        console.log("Registration failed", response.error);
-        return response.error;
+        const result = await response.json();
+        console.error("Registration failed : ", result.error);
+        return result.error;
       }
     } catch (error) {
-      console.error("error registering: ", error);
+      console.error("Error registering: ", error);
     }
   },
   login: async (username, password) => {
@@ -28,11 +29,12 @@ const authService = {
       });
 
       if (!response.ok) {
-        console.log("Login failed", response.error);
-        return response.error;
+        const result = await response.json();
+        console.error("Login failed : ", result.error);
+        return result.error;
       }
     } catch (error) {
-      console.error("error logging in: ", error);
+      console.error("Error logging in: ", error);
       return error;
     }
   },

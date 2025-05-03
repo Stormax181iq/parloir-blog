@@ -81,7 +81,7 @@ const authController = {
           username: username,
         });
       } else {
-        return res.status(401).json({ error: "Login failed: wrong password" });
+        return res.status(401).json({ error: "Wrong password" });
       }
     } catch (error) {
       console.error("Failed to login user: ", error);

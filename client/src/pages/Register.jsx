@@ -13,7 +13,6 @@ export default function Register() {
     const data = Object.fromEntries(formData.entries());
     const err = await authService.register(data.username, data.password);
     if (err) {
-      console.error(err);
       setError(err);
     } else {
       setError(false);
