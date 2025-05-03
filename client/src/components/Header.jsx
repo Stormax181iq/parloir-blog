@@ -54,9 +54,7 @@ export default function Header({ toggleTheme }) {
         </label>
         <HeaderLink link="/contact">Contact</HeaderLink>
         <HeaderLink link="/about">About</HeaderLink>
-        <HeaderLink link={isAuthenticated ? "/write" : "/login"}>
-          Write
-        </HeaderLink>
+        <HeaderLink link={"/write"}>Write</HeaderLink>
         {isAuthenticated ? (
           <button onClick={handleLogout}>Logout</button>
         ) : (

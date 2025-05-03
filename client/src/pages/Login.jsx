@@ -1,12 +1,13 @@
 import { useState } from "react";
 import MainButton from "../components/MainButton";
 import useAuth from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [error, setError] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const location = useLocation();
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -18,7 +19,8 @@ export default function Login() {
       if (err) {
         setError(err);
       } else {
-        navigate("/");
+        const from = location.state?.from ?? "/";
+        navigate(from, { replace: true });
       }
     } catch (error) {
       console.error(error);

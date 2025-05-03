@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Write from "./pages/Write";
 import PostPage from "./components/PostPage";
 import UserPage from "./components/UserPage";
 
@@ -21,9 +22,9 @@ function App() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <AuthProvider>
-      <ThemeContext.Provider value={theme}>
-        <Router>
+    <Router>
+      <AuthProvider>
+        <ThemeContext.Provider value={theme}>
           <div className="flex min-h-screen flex-col">
             <Header toggleTheme={toggleTheme} />
             <Routes>
@@ -55,15 +56,15 @@ function App() {
                 <Route path="register" element={<Register />} />
                 <Route path="login" element={<Login />} />
                 <Route element={<Protected />}>
-                  <Route path="write" element={<About />} />
+                  <Route path="write" element={<Write />} />
                 </Route>
               </Route>
             </Routes>
             <Footer />
           </div>
-        </Router>
-      </ThemeContext.Provider>
-    </AuthProvider>
+        </ThemeContext.Provider>
+      </AuthProvider>
+    </Router>
   );
 }
 
