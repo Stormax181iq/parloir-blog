@@ -11,13 +11,12 @@ import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import logo from "../assets/logo.png";
 import darkModeLogo from "../assets/logo-dm.png";
 import useAuth from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Header({ toggleTheme }) {
   const theme = useContext(ThemeContext);
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
-
   async function handleLogout() {
     await logout();
     navigate("/");
@@ -26,13 +25,13 @@ export default function Header({ toggleTheme }) {
   return (
     <header className="sticky top-0 z-50 flex h-[8vh] items-center justify-between overflow-hidden border-b border-main-black bg-second px-[10vw] dark:border-main-white dark:bg-main-black">
       <div>
-        <a href="/" aria-label="home page">
+        <Link to="/" aria-label="home page">
           <img
             src={theme === "light" ? logo : darkModeLogo}
             alt="logo"
             width={250}
           />
-        </a>
+        </Link>
       </div>
       <div>
         <label className="relative inline-block h-6 w-12 cursor-pointer align-middle">
