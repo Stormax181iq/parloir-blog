@@ -27,7 +27,7 @@ export default function Login() {
   }
 
   return (
-    <div className="m-8 mx-auto rounded-lg border border-main-black p-4 dark:border-main-white dark:text-main-black">
+    <div className="m-8 mx-auto rounded-lg border border-main-black p-4 dark:border-main-white">
       <h1 className="text-center font-h text-3xl">Login</h1>
       {error && <p>Error occurred: {error}</p>}
       <form
@@ -39,7 +39,7 @@ export default function Login() {
           name="username"
           id="username"
           placeholder="Username"
-          className="mt-2 rounded-lg p-2"
+          className="mt-2 rounded-lg p-2 dark:text-main-black"
           autoFocus
           required
         />
@@ -48,7 +48,7 @@ export default function Login() {
           name="password"
           id="password"
           placeholder="Password"
-          className="mt-2 rounded-lg p-2"
+          className="mt-2 rounded-lg p-2 dark:text-main-black"
           autoComplete="off"
           required
         />

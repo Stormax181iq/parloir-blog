@@ -21,7 +21,7 @@ export default function Register() {
     }
   }
   return (
-    <div className="m-8 mx-auto rounded-lg border border-main-black p-4 dark:border-main-white dark:text-main-black">
+    <div className="dark:border-main-whit m-8 mx-auto rounded-lg border border-main-black p-4">
       <h1 className="text-center font-h text-3xl">Register</h1>
       {error && <p>Error occurred: {error}</p>}
       <form
@@ -33,7 +33,7 @@ export default function Register() {
           name="username"
           id="username"
           placeholder="Username"
-          className="mt-2 rounded-lg p-2"
+          className="mt-2 rounded-lg p-2 dark:text-main-black"
           autoFocus
           required
         />
@@ -42,7 +42,7 @@ export default function Register() {
           name="password"
           id="password"
           placeholder="Password"
-          className="mt-2 rounded-lg p-2"
+          className="mt-2 rounded-lg p-2 dark:text-main-black"
           autoComplete="off"
           required
         />
