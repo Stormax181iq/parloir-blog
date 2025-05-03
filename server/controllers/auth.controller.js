@@ -9,17 +9,41 @@ const authController = {
     try {
       const { username, password } = req.body;
 
+      if (password.trim().length < 8) {
+        return res
+          .status(400)
+          .json({ error: "Password must be at least 8 characters long" });
+      }
+
       const saltRounds = 10;
 
-      bcrypt.hash(password, saltRounds, function (err, hash) {
+      bcrypt.hash(password.trim(), saltRounds, async function (err, hash) {
         if (err) {
+          console.error(err);
           return res.status(500).json({ error: "Internal server error" });
-        } else {
-          db.query("INSERT INTO users (username, hash) VALUES ($1, $2)", [
+        }
+
+        try {
+          await db.query("INSERT INTO users (username, hash) VALUES ($1, $2)", [
             username,
             hash,
           ]);
           return res.status(201).send();
+        } catch (dbError) {
+          console.error("Database error: ", dbError);
+          if (dbError.code === "23502") {
+            return res
+              .status(400)
+              .json({ error: "Username cannot be null or empty" });
+          } else if (dbError.code === "23514") {
+            return res
+              .status(400)
+              .json({ error: "Username doesn’t match the requirements" });
+          } else if (dbError.code === "23505") {
+            return res.status(400).json({ error: "Username already exists" });
+          } else {
+            return res.status(500).json({ error: "Internal Server Error" });
+          }
         }
       });
     } catch (error) {
