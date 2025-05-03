@@ -7,7 +7,6 @@ import PostCard from "../components/PostCard";
 import homeImg from "../assets/homeWomanArt.png";
 
 import apiService from "../api/apiService";
-import useAuth from "../hooks/useAuth";
 
 export default function Home() {
   const recentPostsPerPage = 3;
@@ -20,7 +19,6 @@ export default function Home() {
   const [editorsChoicePosts, setEditorsChoicePosts] = useState([]);
   const [popularPosts, setPopularPosts] = useState([]);
   const [currentRecentPostsPage, setCurrentRecentPostsPage] = useState(0);
-  const { isAuthenticated, user } = useAuth();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -93,9 +91,6 @@ export default function Home() {
     <>
       <div className="relative flex h-[90vh] flex-row items-center overflow-clip px-[10vw]">
         <div className="ml-16">
-          {isAuthenticated && (
-            <h1 className="text-3xl">Hello {user.username}</h1>
-          )}
           <h1 className="pb-14 font-h text-8xl">Let your stories shine.</h1>
           <p className="font-sans mb-14 text-2xl">
             Parloir helps others read, write, and deepen their understanding.
