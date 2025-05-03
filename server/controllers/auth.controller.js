@@ -7,8 +7,11 @@ const db = require("../config/db");
 const authController = {
   register: async (req, res) => {
     try {
-      const { username, password } = req.body;
+      const { username, password, passwordConfirm } = req.body;
 
+      if (password !== passwordConfirm) {
+        return res.status(400).json({ error: "Passwords don’t match" });
+      }
       if (password.trim().length < 8) {
         return res
           .status(400)

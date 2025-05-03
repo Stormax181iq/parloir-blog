@@ -45,6 +45,15 @@ export default function Register() {
           autoComplete="off"
           required
         />
+        <input
+          type="password"
+          name="passwordConfirm"
+          id="passwordConfirm"
+          placeholder="Confirm your password"
+          className="mt-2 rounded-lg p-2 dark:text-main-black"
+          autoComplete="off"
+          required
+        />
         <MainButton className="mt-2 p-2" type="submit">
           Create your account !
         </MainButton>
