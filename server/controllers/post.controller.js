@@ -68,6 +68,90 @@ const postController = {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   },
+  getPostsByUser: async (req, res) => {
+    try {
+      const { userKey } = req.params;
+
+      let dbResponseUser;
+
+      const userIdNumber = Number(userKey);
+
+      if (Number.isInteger(userIdNumber)) {
+        dbResponseUser = await db.query(
+          "SELECT id, username FROM users WHERE id = $1",
+          [userIdNumber]
+        );
+      } else {
+        dbResponseUser = await db.query(
+          "SELECT id, username FROM users WHERE username = $1",
+          [userKey]
+        );
+      }
+
+      let user;
+
+      if (dbResponseUser.rowCount > 0) {
+        user = dbResponseUser.rows[0];
+      } else {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      const dbResponsePosts = await db.query(
+        "SELECT posts.id, posts.title, posts.content, posts.created_at, categories.name AS category, posts.img_src, posts.likes FROM posts JOIN categories ON posts.category_id = categories.id WHERE posts.user_id = $1 ORDER BY created_at DESC",
+        [user.id]
+      );
+      const posts = dbResponsePosts.rowCount > 0 ? dbResponsePosts.rows : [];
+
+      return res.status(200).json(posts);
+    } catch (error) {
+      console.error("Failed to get posts: ", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+  getPostById: async (req, res) => {
+    try {
+      const { userKey, postId } = req.params;
+
+      let dbResponseUser;
+      const userIdNumber = Number(userKey);
+
+      if (Number.isInteger(userIdNumber)) {
+        dbResponseUser = await db.query(
+          "SELECT id, username FROM users WHERE id = $1",
+          [userIdNumber]
+        );
+      } else {
+        dbResponseUser = await db.query(
+          "SELECT id, username FROM users WHERE username = $1",
+          [userKey]
+        );
+      }
+
+      let user;
+      if (dbResponseUser.rowCount > 0) {
+        user = dbResponseUser.rows[0];
+      } else {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      const dbResponsePost = await db.query(
+        "SELECT posts.title, posts.content, posts.created_at, categories.name AS category, posts.img_src, posts.likes FROM posts JOIN categories ON posts.category_id = categories.id WHERE posts.user_id = $1 AND posts.id = $2",
+        [user.id, postId]
+      );
+
+      if (dbResponsePost.rowCount > 0) {
+        const post = dbResponsePost.rows[0];
+        return res.status(200).json({ post });
+      } else {
+        return res
+          .status(404)
+          .json({ error: "Post id not found for this user" });
+      }
+    } catch (error) {
+      console.error("Failed to get the post: ", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
 };
 
 module.exports = postController;

@@ -1,38 +1,12 @@
 const router = require("express").Router();
-const db = require("../config/db");
+const postController = require("../controllers/post.controller");
+const userController = require("../controllers/user.controller");
 
-router.get("/:key", async (req, res) => {
-  // Get users from the database, given parameters
-  try {
-    const key = req.params.key;
+// User-specific routes
+router.get("/:userKey", userController.getUser);
 
-    let user;
-    // Handle id parameter
-    const userIdNumber = Number(key);
-    // Check if the id is an integer
-
-    if (Number.isInteger(userIdNumber)) {
-      user = await db.query("SELECT id, username FROM users WHERE id = $1", [
-        userIdNumber,
-      ]);
-    } else {
-      // Assumes key is a username
-      user = await db.query(
-        "SELECT id, username FROM users WHERE username = $1",
-        [key]
-      );
-    }
-
-    // Check if data is empty
-    if (user.rowCount > 0) {
-      return res.status(200).json(user.rows[0]);
-    } else {
-      return res.status(404).json({ error: "User not found" });
-    }
-  } catch (error) {
-    console.error("Error fetching user: ", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-});
+// Posts by user routes
+router.get("/:userKey/posts", postController.getPostsByUser);
+router.get("/:userKey/posts/:postId", postController.getPostById);
 
 module.exports = router;

@@ -52,9 +52,15 @@ function App() {
                     />
                   }
                 />
-                <Route path="user" element={<UserPage />} />
                 <Route path="register" element={<Register />} />
                 <Route path="login" element={<Login />} />
+                <Route path="users">
+                  <Route path=":username" element={<UserPage />}>
+                    <Route path="posts">
+                      <Route path=":postId" element={<PostPage />}></Route>
+                    </Route>
+                  </Route>
+                </Route>
                 <Route element={<Protected />}>
                   <Route path="write" element={<Write />} />
                 </Route>

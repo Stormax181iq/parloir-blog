@@ -14,7 +14,9 @@ const apiService = {
     return data;
   },
   getUsernameById: async (id) => {
-    const response = await fetch(`/api/users/${encodeURIComponent(id)}`);
+    const response = await fetch(
+      `/api/users/${encodeURIComponent(id)}?filter=username`,
+    );
 
     const data = await response.json();
     return data.username;
@@ -40,6 +42,41 @@ const apiService = {
 
     const data = await response.json();
     return data;
+  },
+  getUserIdByName: async (username) => {
+    const response = await fetch(
+      `/api/users/${encodeURIComponent(username)}?filter=id`,
+    );
+
+    const data = await response.json();
+    return data;
+  },
+  getPostsByUser: async (userKey) => {
+    const response = await fetch(
+      `/api/users/${encodeURIComponent(userKey.toString())}/posts`,
+    );
+
+    const data = await response.json();
+    return data;
+  },
+  getPostByUserAndId: async (username, postId) => {
+    const response = await fetch(
+      `/api/users/${encodeURIComponent(username)}/posts/${encodeURIComponent(postId)}`,
+    );
+
+    const data = await response.json();
+    return data;
+  },
+  getUserInfos: async (userKey) => {
+    const response = await fetch(`/api/users/${encodeURIComponent(userKey)}`);
+
+    const data = await response.json();
+    return {
+      id: data.id,
+      username: data.username,
+      description: data.description,
+      profilePicSrc: data.profile_pic_src,
+    };
   },
 };
 

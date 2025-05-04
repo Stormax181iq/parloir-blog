@@ -111,7 +111,7 @@ PostCard.propTypes = {
   postId: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string,
-  author: PropTypes.string.isRequired,
+  author: PropTypes.string,
   timeOfPublication: PropTypes.string.isRequired,
   category: PropTypes.string,
   imgSrc: PropTypes.string,

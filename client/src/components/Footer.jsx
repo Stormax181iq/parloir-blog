@@ -1,4 +1,5 @@
 import authorImg from "../assets/author.jpg";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -19,15 +20,15 @@ export default function Footer() {
       </div>
       <div className="mr-8 grid grid-flow-col grid-cols-2 grid-rows-4 gap-x-8">
         <p>Links</p>
-        <a className="underline" href="/">
+        <Link className="underline" to="/">
           Homepage
-        </a>
-        <a className="underline" href="/about">
+        </Link>
+        <Link className="underline" to="/about">
           About
-        </a>
-        <a className="underline" href="/contact">
+        </Link>
+        <Link className="underline" to="/contact">
           Contact
-        </a>
+        </Link>
         <p>Socials</p>
         <a className="underline" href="https://www.instagram.com/_k_chl/">
           Instagram
