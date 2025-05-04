@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 export default function MainButton({
   onClick,
@@ -11,15 +12,15 @@ export default function MainButton({
   return (
     <>
       {isLink ? (
-        <a
+        <Link
           className={
             "rounded-full bg-main-black font-medium text-main-white no-underline dark:bg-main-white dark:text-main-black " +
             className
           }
-          href={link}
+          to={link}
         >
           {children}
-        </a>
+        </Link>
       ) : (
         <button
           className={

@@ -48,7 +48,7 @@ export default function UserPage() {
 
       <div>
         <h2 className="mx-auto mb-16 text-center font-h text-2xl">
-          All posts from Dan
+          All posts from {user.username}
         </h2>
         {posts ? (
           posts.map((post) => {
@@ -58,9 +58,11 @@ export default function UserPage() {
                   postId={post.id}
                   title={post.title}
                   content={post.content}
+                  author={user.username}
                   timeOfPublication={post.created_at}
                   category={post.category}
                   imgSrc={post.img_src}
+                  showAuthor={false}
                 />
               </div>
             );

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 
+import { Link } from "react-router-dom";
 import MainButton from "./MainButton";
 import CategoryButton from "./CategoryButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,6 +17,7 @@ export default function PostCard({
   size = "lg",
   displayButton = true,
   imgTop = false,
+  showAuthor = true,
 }) {
   function formatDate(date) {
     const day = date.getDate();
@@ -29,6 +31,9 @@ export default function PostCard({
     return `${pad(day)}/${pad(month)}/${year} ${pad(hours)}:${pad(minutes)}`;
   }
   const publicationTime = formatDate(new Date(timeOfPublication));
+
+  const postLink = `/users/${author}/posts/${postId}`;
+  const authorLink = `/users/${author}`;
   switch (size) {
     case "lg":
       return (
@@ -58,19 +63,23 @@ export default function PostCard({
                 <FontAwesomeIcon icon={faBookmark} className="text-2xl" />
               </button>
             </div>
-            {author && <p>{author}</p>}
+            {showAuthor && (
+              <Link className="hover:underline" to={authorLink}>
+                {author}
+              </Link>
+            )}
             {displayButton ? (
               <h2 className="text-justify font-h text-2xl">{title}</h2>
             ) : (
               <h2 className="w-full text-justify font-h text-2xl underline">
-                <a href={"/posts/" + title + "-" + postId}>{title}</a>
+                <Link to={postLink}>{title}</Link>
               </h2>
             )}
             <p className="mb-4">{content.slice(0, 150)}…</p>
             {displayButton && (
               <MainButton
                 isLink={true}
-                link={"/posts/" + title + "-" + postId}
+                link={postLink}
                 className="w-28 px-3 py-2 text-center"
               >
                 Read More
@@ -94,11 +103,16 @@ export default function PostCard({
               />
             )}
             <div>
-              <a href={"/posts/" + title + "-" + postId}>
+              <Link to={postLink}>
                 <h2 className="mt-1 font-h text-xl underline">{title}</h2>
-              </a>
+              </Link>
               <p>
-                {author} {publicationTime}
+                {showAuthor && (
+                  <Link className="hover:underline" to={authorLink}>
+                    {author}
+                  </Link>
+                )}{" "}
+                {publicationTime}
               </p>
             </div>
           </div>
@@ -111,11 +125,12 @@ PostCard.propTypes = {
   postId: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string,
-  author: PropTypes.string,
+  author: PropTypes.string.isRequired,
   timeOfPublication: PropTypes.string.isRequired,
   category: PropTypes.string,
   imgSrc: PropTypes.string,
   size: PropTypes.string,
   displayButton: PropTypes.bool,
   imgTop: PropTypes.bool,
+  showAuthor: PropTypes.bool,
 };
