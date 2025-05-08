@@ -13,14 +13,17 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import apiService from "../api/apiService";
 import formatDate from "../helpers/formatDate";
+import PostCard from "./PostCard";
 
 library.add(faThumbsUp, faComment);
 
 export default function PostPage() {
+  const MAX_NUMBER_OF_POSTS = 4;
   const { username, postId } = useParams();
 
   const [post, setPost] = useState({});
-  const [user, setUser] = useState({});
+  const [author, setAuthor] = useState({});
+  const [authorPosts, setAuthorPosts] = useState([]);
 
   const publicationTime = formatDate(new Date(post.createdAt));
 
@@ -34,11 +37,18 @@ export default function PostPage() {
     const fetchUser = async () => {
       const data = await apiService.getUserInfos(username);
 
-      setUser(data);
+      setAuthor(data);
+    };
+
+    const fetchUserPosts = async () => {
+      const data = await apiService.getPostsByUser(username);
+
+      setAuthorPosts(data.slice(0, MAX_NUMBER_OF_POSTS));
     };
 
     fetchPost();
     fetchUser();
+    fetchUserPosts();
   }, [username, postId]);
 
   return (
@@ -50,17 +60,17 @@ export default function PostPage() {
               <h1 className="mb-8 pr-4 font-h text-5xl">{post.title}</h1>
               <div className="flex items-center">
                 <img
-                  src={user.profilePicSrc}
-                  alt={"profile picture of " + user.username}
+                  src={author.profilePicSrc}
+                  alt={"profile picture of " + author.username}
                   className="my-2 mr-2 h-16 w-16 rounded-full"
                 />
                 <div className="mx-2 flex flex-col">
                   <div className="flex items-center">
                     <Link
-                      to={`/users/${user.username}`}
+                      to={`/users/${author.username}`}
                       className="text-3xl underline"
                     >
-                      {user.username}
+                      {author.username}
                     </Link>
                   </div>
                   <p>{publicationTime}</p>
@@ -122,38 +132,58 @@ export default function PostPage() {
           </div>
         </div>
       </div>
-      <div className="mb-8 grid grid-cols-3 border-t border-main-black px-[10vw] py-4">
-        <div className="border-r border-main-black pr-4">
+      <div className="mb-8 flex border-t border-main-black px-[10vw] py-4">
+        <div className="w-1/3 border-r border-main-black pr-4">
           <div>
             <img
-              src={user.profilePicSrc}
-              alt={user.username}
+              src={author.profilePicSrc}
+              alt={author.username}
               className="h-16 w-16 rounded-full"
             />
             <div className="flex items-start">
               <div>
                 <p className="mt-2 font-h text-4xl">
                   Written by{" "}
-                  <Link to={`/users/${user.username}`} className="underline">
-                    {user.username}
+                  <Link to={`/users/${author.username}`} className="underline">
+                    {author.username}
                   </Link>
                 </p>
-                <p>{user.description}</p>
+                <p>{author.description}</p>
               </div>
             </div>
           </div>
         </div>
         <div className="ml-8">
           <h2 className="mb-2 mt-4 font-h text-3xl">
-            More from {user.username}
+            More from {author.username}
           </h2>
-          <div className="grid grid-cols-2 grid-rows-2 gap-4"></div>
+          <div className="grid grid-cols-2 grid-rows-2 gap-4">
+            {authorPosts ? (
+              authorPosts.map((authorPost) => {
+                return (
+                  <PostCard
+                    key={authorPost.id}
+                    postId={authorPost.id}
+                    title={authorPost.title}
+                    content={authorPost.content}
+                    author={username}
+                    timeOfPublication={authorPost.created_at}
+                    category={authorPost.category}
+                    imgSrc={authorPost.img_src}
+                    imgTop={true}
+                  />
+                );
+              })
+            ) : (
+              <p>Loading posts</p>
+            )}
+          </div>
           <MainButton
             isLink={true}
-            link={`/users/${user.username}`}
+            link={`/users/${author.username}`}
             className="px-2 py-4"
           >
-            See all from {user.username}
+            See all from {author.username}
           </MainButton>
         </div>
       </div>
