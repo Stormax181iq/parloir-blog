@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 
+import { Link } from "react-router-dom";
+
 export default function CategoryButton({ children, size = "lg" }) {
   let styles;
   switch (size) {
@@ -10,9 +12,9 @@ export default function CategoryButton({ children, size = "lg" }) {
       styles = "bg-accent py-1 px-2 rounded-full";
   }
   return (
-    <a href={`/posts/categories/${children.toLowerCase()}`} className={styles}>
+    <Link to={`/posts/categories/${children.toLowerCase()}`} className={styles}>
       {children}
-    </a>
+    </Link>
   );
 }
 CategoryButton.propTypes = {

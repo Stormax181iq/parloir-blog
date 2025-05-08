@@ -65,7 +65,16 @@ const apiService = {
     );
 
     const data = await response.json();
-    return data;
+    return {
+      id: data.id,
+      username: data.username,
+      title: data.title,
+      content: data.content,
+      createdAt: data.created_at,
+      category: data.category,
+      imgSrc: data.img_src,
+      likes: data.likes,
+    };
   },
   getUserInfos: async (userKey) => {
     const response = await fetch(`/api/users/${encodeURIComponent(userKey)}`);

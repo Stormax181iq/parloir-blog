@@ -5,6 +5,7 @@ import MainButton from "./MainButton";
 import CategoryButton from "./CategoryButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
+import formatDate from "../helpers/formatDate";
 
 export default function PostCard({
   postId,
@@ -19,17 +20,6 @@ export default function PostCard({
   imgTop = false,
   showAuthor = true,
 }) {
-  function formatDate(date) {
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-
-    const pad = (num) => num.toString().padStart(2, "0");
-
-    return `${pad(day)}/${pad(month)}/${year} ${pad(hours)}:${pad(minutes)}`;
-  }
   const publicationTime = formatDate(new Date(timeOfPublication));
 
   const postLink = `/users/${author}/posts/${postId}`;

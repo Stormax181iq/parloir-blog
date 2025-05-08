@@ -135,13 +135,13 @@ const postController = {
       }
 
       const dbResponsePost = await db.query(
-        "SELECT posts.title, posts.content, posts.created_at, categories.name AS category, posts.img_src, posts.likes FROM posts JOIN categories ON posts.category_id = categories.id WHERE posts.user_id = $1 AND posts.id = $2",
+        "SELECT posts.id, users.username, posts.title, posts.content, posts.created_at, categories.name AS category, posts.img_src, posts.likes FROM posts JOIN categories ON posts.category_id = categories.id JOIN users ON posts.user_id = users.id WHERE posts.user_id = $1 AND posts.id = $2",
         [user.id, postId]
       );
 
       if (dbResponsePost.rowCount > 0) {
         const post = dbResponsePost.rows[0];
-        return res.status(200).json({ post });
+        return res.status(200).json(post);
       } else {
         return res
           .status(404)

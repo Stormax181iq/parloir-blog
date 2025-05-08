@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import apiService from "../api/apiService";
 import PostCard from "./PostCard";
 
 export default function UserPage() {
-  const { username } = useParams();
+  const { username, postId } = useParams();
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
 
@@ -30,6 +30,11 @@ export default function UserPage() {
     fetchUserData();
     user.id && fetchUserPosts();
   }, [username, user.id]);
+
+  if (postId) {
+    return <Outlet />;
+  }
+
   return (
     <div className="m-8 mx-auto h-full w-full">
       <div className="flex items-center justify-center">
