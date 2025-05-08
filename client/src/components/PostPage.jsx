@@ -157,7 +157,7 @@ export default function PostPage() {
           <h2 className="mb-2 mt-4 font-h text-3xl">
             More from {author.username}
           </h2>
-          <div className="grid grid-cols-2 grid-rows-2 gap-4">
+          <div className="mb-8 mr-36 grid grid-cols-2 grid-rows-2 gap-12">
             {authorPosts ? (
               authorPosts.map((authorPost) => {
                 return (
