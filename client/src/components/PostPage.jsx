@@ -7,13 +7,17 @@ import {
   faComment,
   faBookmark,
 } from "@fortawesome/free-regular-svg-icons";
-import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShareNodes,
+  faThumbsUp as faThumbsUpSolid,
+} from "@fortawesome/free-solid-svg-icons";
 import MainButton from "./MainButton";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import apiService from "../api/apiService";
 import formatDate from "../helpers/formatDate";
 import PostCard from "./PostCard";
+import useAuth from "../hooks/useAuth";
 
 library.add(faThumbsUp, faComment);
 
@@ -21,9 +25,12 @@ export default function PostPage() {
   const MAX_NUMBER_OF_POSTS = 4;
   const { username, postId } = useParams();
 
+  const { isAuthenticated } = useAuth();
+
   const [post, setPost] = useState({});
   const [author, setAuthor] = useState({});
   const [authorPosts, setAuthorPosts] = useState([]);
+  const [liked, setLiked] = useState(false);
 
   const publicationTime = formatDate(new Date(post.createdAt));
 
@@ -34,7 +41,7 @@ export default function PostPage() {
       setPost(data);
     };
 
-    const fetchUser = async () => {
+    const fetchAuthor = async () => {
       const data = await apiService.getUserInfos(username);
 
       setAuthor(data);
@@ -46,10 +53,23 @@ export default function PostPage() {
       setAuthorPosts(data.slice(0, MAX_NUMBER_OF_POSTS));
     };
 
+    const fetchLiked = async () => {
+      const data = await apiService.hasLikedPost(username, postId);
+
+      setLiked(data);
+    };
+
     fetchPost();
-    fetchUser();
+    fetchAuthor();
     fetchUserPosts();
-  }, [username, postId]);
+
+    isAuthenticated && fetchLiked();
+  }, [username, postId, isAuthenticated]);
+
+  async function handleLike() {
+    setLiked(!liked);
+    await apiService.likePost(author, postId);
+  }
 
   return (
     <>
@@ -79,8 +99,15 @@ export default function PostPage() {
             </div>
             <div className="mb-2 flex w-full items-center justify-between border-y border-main-black px-4 py-4">
               <div className="flex w-1/3 items-center justify-between">
-                <button className="flex" title="Like this post">
-                  <FontAwesomeIcon icon={faThumbsUp} className="text-2xl" />
+                <button
+                  onClick={handleLike}
+                  className="flex"
+                  title="Like this post"
+                >
+                  <FontAwesomeIcon
+                    icon={liked ? faThumbsUpSolid : faThumbsUp}
+                    className="text-2xl"
+                  />
                   <p className="ml-1">{post.likes}</p>
                 </button>
               </div>
@@ -117,8 +144,15 @@ export default function PostPage() {
           </div>
           <div className="my-4 mb-2 flex w-full items-center px-4 py-4">
             <div className="flex w-1/4 items-center justify-between">
-              <button className="flex" title="Like this post">
-                <FontAwesomeIcon icon={faThumbsUp} className="text-2xl" />
+              <button
+                onClick={handleLike}
+                className="flex"
+                title="Like this post"
+              >
+                <FontAwesomeIcon
+                  icon={liked ? faThumbsUpSolid : faThumbsUp}
+                  className="text-2xl"
+                />
                 <p className="ml-1">{post.likes}</p>
               </button>
 

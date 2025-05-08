@@ -1,4 +1,5 @@
 const db = require("../config/db");
+const { default: checkUserKey } = require("../helpers/checkUserKey");
 
 const userController = {
   getUser: async (req, res) => {
@@ -12,14 +13,11 @@ const userController = {
       const { userKey } = req.params;
 
       let dbResponseUser;
-      // Handle id parameter
-      const userIdNumber = Number(userKey);
-      // Check if the id is an integer
 
-      if (Number.isInteger(userIdNumber)) {
+      if (checkUserKey(userKey) === "id") {
         dbResponseUser = await db.query(
           "SELECT id, username, description, profile_pic_src FROM users WHERE id = $1",
-          [userIdNumber]
+          [userKey]
         );
       } else {
         // Assumes key is a username
@@ -52,6 +50,29 @@ const userController = {
       }
     } catch (error) {
       console.error("Error fetching user: ", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+  getLikesForUser: async (req, res) => {
+    try {
+      const { userKey } = req.params;
+
+      const queryBody =
+        "SELECT posts.id FROM likes JOIN posts ON likes.post_id = posts.id";
+
+      const queryClause =
+        checkUserKey(userKey) === "id"
+          ? "WHERE likes.user_id = $1"
+          : "WHERE likes.user_id = (SELECT id FROM users WHERE username = $1)";
+
+      const query = queryBody + " " + queryClause;
+      const dbResponse = await db.query(query, [userKey]);
+
+      const likes = dbResponse.rows;
+
+      return res.status(200).json(likes);
+    } catch (error) {
+      console.error("Failed to get likes", error);
       return res.status(500).json({ error: "Internal Server Error" });
     }
   },

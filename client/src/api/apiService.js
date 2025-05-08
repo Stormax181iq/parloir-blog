@@ -87,6 +87,22 @@ const apiService = {
       profilePicSrc: data.profile_pic_src,
     };
   },
+  hasLikedPost: async (author, postId) => {
+    const response = await fetch(
+      `/api/users/${encodeURIComponent(author)}/posts/${encodeURIComponent(postId)}/liked`,
+    );
+
+    const data = await response.json();
+    return data.hasLiked;
+  },
+  likePost: async (author, postId) => {
+    await fetch(
+      `/api/users/${encodeURIComponent(author)}/posts/${encodeURIComponent(postId)}/toggle-like`,
+      {
+        method: "POST",
+      },
+    );
+  },
 };
 
 export default apiService;

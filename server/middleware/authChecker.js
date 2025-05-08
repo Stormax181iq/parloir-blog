@@ -7,7 +7,7 @@ const authChecker = async (req, res, next) => {
     const token = req.cookies.token;
 
     if (!token) {
-      return res.status(401).send();
+      return res.status(401).send({ error: "No token provided" });
     }
 
     try {

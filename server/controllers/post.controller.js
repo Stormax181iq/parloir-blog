@@ -1,3 +1,4 @@
+const { json } = require("express");
 const db = require("../config/db");
 
 const postController = {
@@ -149,6 +150,51 @@ const postController = {
       }
     } catch (error) {
       console.error("Failed to get the post: ", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+  isPostLiked: async (req, res) => {
+    try {
+      const { postId } = req.params;
+      const { userId } = req.user;
+
+      const dbResponse = await db.query(
+        "SELECT users.id, users.username FROM likes JOIN users ON users.id = likes.user_id WHERE post_id = $1 AND user_id = $2",
+        [postId, userId]
+      );
+
+      return res.status(200).json({ hasLiked: dbResponse.rowCount > 0 });
+    } catch (error) {
+      console.error("Failed to get the likes: ", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+  togglePostLike: async (req, res) => {
+    try {
+      const { userId } = req.user;
+      const { postId } = req.params;
+
+      const dbResponseHasLiked = await db.query(
+        "SELECT users.id, users.username FROM likes JOIN users ON users.id = likes.user_id WHERE post_id = $1 AND user_id = $2",
+        [postId, userId]
+      );
+
+      const hasLiked = dbResponseHasLiked.rowCount > 0;
+      if (hasLiked) {
+        await db.query(
+          "DELETE FROM likes WHERE user_id = $1 AND post_id = $2",
+          [userId, postId]
+        );
+      } else {
+        await db.query("INSERT INTO likes (user_id, post_id) VALUES ($1, $2)", [
+          userId,
+          postId,
+        ]);
+      }
+
+      return res.status(201).send();
+    } catch (error) {
+      console.error("Failed to toggle the like state: ", error);
       return res.status(500).json({ error: "Internal Server Error" });
     }
   },
