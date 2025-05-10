@@ -7,7 +7,7 @@ const apiService = {
   },
   getRecentPosts: async (limit = null) => {
     const response = await fetch(
-      `/api/posts?filter=recent${limit ? "&limit=" + limit : ""}`,
+      `/api/posts?sort=recent${limit ? "&limit=" + limit : ""}`,
     );
 
     const data = await response.json();
@@ -37,7 +37,7 @@ const apiService = {
   },
   getPopularPosts: async (limit = null) => {
     const response = await fetch(
-      `/api/posts?filter=popular${limit ? "&limit=" + limit : ""}`,
+      `/api/posts?sort=popular${limit ? "&limit=" + limit : ""}`,
     );
 
     const data = await response.json();
@@ -102,6 +102,14 @@ const apiService = {
         method: "POST",
       },
     );
+  },
+  getPostsByCategory: async (category, limit = null) => {
+    const response = await fetch(
+      `/api/posts?category=${encodeURIComponent(category)}${limit ? "&limit=" + encodeURIComponent(limit) : ""}`,
+    );
+
+    const data = await response.json();
+    return data;
   },
 };
 

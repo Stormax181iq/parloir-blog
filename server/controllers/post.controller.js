@@ -4,10 +4,11 @@ const db = require("../config/db");
 const postController = {
   getAllPosts: async (req, res) => {
     // Retrieve recent posts from the database
-    const allowedFilters = ["recent", "editors", "popular"];
+    const allowedFilters = ["editors"];
+    const allowedSorts = ["recent", "popular"];
 
     try {
-      const { filter, limit } = req.query;
+      const { filter, sort, category, limit } = req.query;
       if (limit && (!Number.isInteger(Number(limit)) || Number(limit) < 0)) {
         return res
           .status(400)
@@ -19,6 +20,14 @@ const postController = {
           error:
             "The specified filter is not valid, must be one of : " +
             allowedFilters,
+        });
+      }
+
+      if (sort && !allowedSorts.includes(sort)) {
+        return res.status(400).json({
+          error:
+            "The specified sort method is invalid, must be one of : " +
+            allowedSorts,
         });
       }
       let query = `
@@ -41,19 +50,35 @@ const postController = {
       let params = [];
 
       switch (filter) {
-        case "recent":
-          query += " ORDER BY created_at DESC";
-          break;
         case "editors":
           query += " WHERE posts.id IN (SELECT post_id FROM editors_choice)";
           break;
+      }
+
+      if (category && filter) {
+        query += ` AND categories.name = $${params.length + 1}`;
+      } else if (category) {
+        query += ` WHERE categories.name = $${params.length + 1}`;
+      }
+
+      if (category) {
+        // Capitalise category name for db query
+        params.push(
+          String(category[0]).toUpperCase() + String(category).slice(1)
+        );
+      }
+
+      switch (sort) {
         case "popular":
           query += " ORDER BY likes DESC";
+          break;
+        case "recent":
+          query += " ORDER BY created_at DESC";
           break;
       }
 
       if (limit > 0) {
-        query += " LIMIT $1";
+        query += ` LIMIT $${params.length + 1}`;
         params.push(limit);
       }
 
