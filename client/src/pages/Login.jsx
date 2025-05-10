@@ -29,8 +29,8 @@ export default function Login() {
   }
 
   return (
-    <div className="m-8 mx-auto rounded-lg border border-main-black p-4 dark:border-main-white">
-      <h1 className="text-center font-h text-3xl">Login</h1>
+    <div className="border-main-black dark:border-main-white m-8 mx-auto rounded-lg border p-4">
+      <h1 className="font-h text-center text-3xl">Login</h1>
       {error && <p>Error occurred: {error}</p>}
       <form
         onSubmit={handleLoginSubmit}
@@ -43,7 +43,7 @@ export default function Login() {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="mt-2 rounded-lg p-2 dark:text-main-black"
+          className="dark:text-main-black bg-main-white mt-2 rounded-lg p-2"
           autoFocus
           required
         />
@@ -54,7 +54,7 @@ export default function Login() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="mt-2 rounded-lg p-2 dark:text-main-black"
+          className="dark:text-main-black bg-main-white mt-2 rounded-lg p-2"
           autoComplete="off"
           required
         />

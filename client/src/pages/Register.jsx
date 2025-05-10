@@ -21,8 +21,8 @@ export default function Register() {
     }
   }
   return (
-    <div className="dark:border-main-whit m-8 mx-auto rounded-lg border border-main-black p-4">
-      <h1 className="text-center font-h text-3xl">Register</h1>
+    <div className="dark:border-main-white border-main-black m-8 mx-auto rounded-lg border p-4">
+      <h1 className="font-h text-center text-3xl">Register</h1>
       {error && <p>Error occurred: {error}</p>}
       <form
         onSubmit={handleRegisterSubmit}
@@ -35,7 +35,7 @@ export default function Register() {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="mt-2 rounded-lg p-2 dark:text-main-black"
+          className="dark:text-main-black bg-main-white mt-2 rounded-lg p-2"
           autoFocus
           required
         />
@@ -46,7 +46,7 @@ export default function Register() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="mt-2 rounded-lg p-2 dark:text-main-black"
+          className="dark:text-main-black bg-main-white mt-2 rounded-lg p-2"
           autoComplete="off"
           required
         />
@@ -57,7 +57,7 @@ export default function Register() {
           placeholder="Confirm your password"
           value={passwordConfirm}
           onChange={(e) => setPasswordConfirm(e.target.value)}
-          className="mt-2 rounded-lg p-2 dark:text-main-black"
+          className="dark:text-main-black bg-main-white mt-2 rounded-lg p-2"
           autoComplete="off"
           required
         />

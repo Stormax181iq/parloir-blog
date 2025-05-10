@@ -1,3 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --font-h: "Maindra GD", "ui-serif", "Georgia", "Cambria", "Times New Roman",
+    "Times", "serif";
+  --color-main-black: #080708;
+  --color-main-white: #f7f9f7;
+  --color-accent: #8789c0;
+  --color-second: #ddf8e8;
+  --color-third: #b33951;
+}
+@custom-variant dark (&:where(.dark, .dark *));
+@import "tailwindcss";

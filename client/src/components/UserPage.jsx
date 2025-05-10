@@ -58,7 +58,7 @@ export default function UserPage() {
         {posts ? (
           posts.map((post) => {
             return (
-              <div key={post.id} className="mx-auto my-4 max-w-screen-lg">
+              <div key={post.id} className="mx-auto my-4 max-w-(--breakpoint-lg)">
                 <PostCard
                   postId={post.id}
                   title={post.title}
