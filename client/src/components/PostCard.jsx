@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import MainButton from "./MainButton";
 import CategoryButton from "./CategoryButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import formatDate from "../helpers/formatDate";
 
 export default function PostCard({
@@ -49,9 +47,6 @@ export default function PostCard({
                   <CategoryButton size="sm">{category}</CategoryButton>
                 </div>
               )}
-              <button className="mx-2 px-2">
-                <FontAwesomeIcon icon={faBookmark} className="text-2xl" />
-              </button>
             </div>
             {showAuthor && (
               <Link className="hover:underline" to={authorLink}>

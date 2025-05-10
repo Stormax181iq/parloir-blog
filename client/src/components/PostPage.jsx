@@ -1,16 +1,8 @@
 import CategoryButton from "./CategoryButton";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faThumbsUp,
-  faComment,
-  faBookmark,
-} from "@fortawesome/free-regular-svg-icons";
-import {
-  faShareNodes,
-  faThumbsUp as faThumbsUpSolid,
-} from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
+import { faThumbsUp as faThumbsUpSolid } from "@fortawesome/free-solid-svg-icons";
 import MainButton from "./MainButton";
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
@@ -18,8 +10,6 @@ import apiService from "../api/apiService";
 import formatDate from "../helpers/formatDate";
 import PostCard from "./PostCard";
 import useAuth from "../hooks/useAuth";
-
-library.add(faThumbsUp, faComment);
 
 export default function PostPage() {
   const MAX_NUMBER_OF_POSTS = 4;
@@ -118,14 +108,6 @@ export default function PostPage() {
                   <p className="ml-1">{post.likes}</p>
                 </button>
               </div>
-              <div className="flex w-1/6 justify-between">
-                <button title="Save this post to your list of favorites">
-                  <FontAwesomeIcon icon={faBookmark} className="text-2xl" />
-                </button>
-                <button title="Share this post">
-                  <FontAwesomeIcon icon={faShareNodes} className="text-2xl" />
-                </button>
-              </div>
             </div>
           </div>
           <img
@@ -161,12 +143,6 @@ export default function PostPage() {
                   className="text-2xl"
                 />
                 <p className="ml-1">{post.likes}</p>
-              </button>
-              <button title="Save this post to your list of favorites">
-                <FontAwesomeIcon icon={faBookmark} className="text-2xl" />
-              </button>
-              <button title="Share this post">
-                <FontAwesomeIcon icon={faShareNodes} className="text-2xl" />
               </button>
             </div>
           </div>
