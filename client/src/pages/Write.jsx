@@ -32,7 +32,7 @@ export default function Write() {
         />
 
         <textarea
-          className="bg-main-white dark:text-main-black my-2 field-sizing-content max-w-full resize-y rounded-2xl p-2"
+          className="bg-main-white dark:text-main-black my-2 field-sizing-content resize-y rounded-2xl p-2"
           name="content"
           id="content"
           placeholder="Here goes the content of your post! Markdown is enabled"
