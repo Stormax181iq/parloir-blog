@@ -111,6 +111,16 @@ const apiService = {
     const data = await response.json();
     return data;
   },
+  createPost: async (title, content, category = null) => {
+    await fetch(`/api/write/publish`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, content, category }),
+    });
+  },
 };
 
 export default apiService;

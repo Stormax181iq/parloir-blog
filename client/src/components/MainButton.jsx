@@ -14,7 +14,7 @@ export default function MainButton({
       {isLink ? (
         <Link
           className={
-            "rounded-full bg-main-black font-medium text-main-white no-underline dark:bg-main-white dark:text-main-black " +
+            "bg-main-black text-main-white dark:bg-main-white dark:text-main-black rounded-full font-medium no-underline hover:cursor-pointer " +
             className
           }
           to={link}
@@ -24,7 +24,7 @@ export default function MainButton({
       ) : (
         <button
           className={
-            "rounded-full bg-main-black font-medium text-main-white no-underline dark:bg-main-white dark:text-main-black " +
+            "bg-main-black text-main-white dark:bg-main-white dark:text-main-black rounded-full font-medium no-underline hover:cursor-pointer " +
             className
           }
           onClick={onClick}

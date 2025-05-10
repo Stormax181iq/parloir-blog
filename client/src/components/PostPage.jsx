@@ -10,6 +10,7 @@ import apiService from "../api/apiService";
 import formatDate from "../helpers/formatDate";
 import PostCard from "./PostCard";
 import useAuth from "../hooks/useAuth";
+import MDEditor from "@uiw/react-md-editor";
 
 export default function PostPage() {
   const MAX_NUMBER_OF_POSTS = 4;
@@ -70,11 +71,11 @@ export default function PostPage() {
 
   return (
     <>
-      <div className="mx-[20vw] mt-8 border-l border-main-black pl-4">
+      <div className="border-main-black mx-[20vw] mt-8 border-l pl-4">
         <div className="flex w-full justify-between">
           <div className="flex w-full flex-col justify-between">
             <div className="flex h-full w-full flex-col justify-between">
-              <h1 className="mb-8 pr-4 font-h text-5xl">{post.title}</h1>
+              <h1 className="font-h mb-8 pr-4 text-5xl">{post.title}</h1>
               <div className="flex items-center">
                 <img
                   src={author.profilePicSrc}
@@ -94,7 +95,7 @@ export default function PostPage() {
                 </div>
               </div>
             </div>
-            <div className="mb-2 flex w-full items-center justify-between border-y border-main-black px-4 py-4">
+            <div className="border-main-black mb-2 flex w-full items-center justify-between border-y px-4 py-4">
               <div className="flex w-1/3 items-center justify-between">
                 <button
                   onClick={handleLike}
@@ -118,10 +119,10 @@ export default function PostPage() {
             height={300}
           />
         </div>
-        <div className="w-5/6 border-b border-r border-main-black py-4 pb-4 pr-4">
-          <p>{post.content}</p>
+        <div className="border-main-black w-5/6 border-r border-b py-4 pr-4 pb-4">
+          <MDEditor.Markdown className="p-2" source={post.content} />
         </div>
-        <div className="flex h-36 w-5/6 flex-col justify-between border-r border-main-black px-4 py-8">
+        <div className="border-main-black flex h-36 w-5/6 flex-col justify-between border-r px-4 py-8">
           <div className="flex items-center">
             {post.category ? (
               <div className="mr-8" key={post.category}>
@@ -148,8 +149,8 @@ export default function PostPage() {
           </div>
         </div>
       </div>
-      <div className="mb-8 flex border-t border-main-black px-[10vw] py-4">
-        <div className="w-1/3 border-r border-main-black pr-4">
+      <div className="border-main-black mb-8 flex border-t px-[10vw] py-4">
+        <div className="border-main-black w-1/3 border-r pr-4">
           <div>
             <img
               src={author.profilePicSrc}
@@ -158,7 +159,7 @@ export default function PostPage() {
             />
             <div className="flex items-start">
               <div>
-                <p className="mt-2 font-h text-4xl">
+                <p className="font-h mt-2 text-4xl">
                   Written by{" "}
                   <Link to={`/users/${author.username}`} className="underline">
                     {author.username}
@@ -170,10 +171,10 @@ export default function PostPage() {
           </div>
         </div>
         <div className="ml-8">
-          <h2 className="mb-2 mt-4 font-h text-3xl">
+          <h2 className="font-h mt-4 mb-2 text-3xl">
             More from {author.username}
           </h2>
-          <div className="mb-8 mr-36 grid grid-cols-2 grid-rows-2 gap-12">
+          <div className="mr-36 mb-8 grid grid-cols-2 grid-rows-2 gap-12">
             {authorPosts ? (
               authorPosts.map((authorPost) => {
                 return (

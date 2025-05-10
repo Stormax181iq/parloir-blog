@@ -23,7 +23,7 @@ export default function Header({ toggleTheme }) {
   }
 
   return (
-    <header className="sticky top-0 z-50 flex h-[8vh] items-center justify-between overflow-hidden border-b border-main-black bg-second px-[10vw] dark:border-main-white dark:bg-main-black">
+    <header className="border-main-black bg-second dark:border-main-white dark:bg-main-black sticky top-0 z-50 flex h-[8vh] items-center justify-between overflow-hidden border-b px-[10vw]">
       <div>
         <Link to="/" aria-label="home page">
           <img
@@ -42,13 +42,13 @@ export default function Header({ toggleTheme }) {
             name="dark mode switch"
             className="peer h-0 w-0"
           />
-          <span className="absolute bottom-0 left-0 right-0 top-0 rounded-2xl bg-main-white before:absolute before:left-0 before:top-1/2 before:h-5 before:w-5 before:-translate-y-1/2 before:rounded-xl before:bg-accent before:duration-200 peer-checked:bg-main-black peer-checked:before:translate-x-[1.6rem] peer-focus:shadow-md dark:border dark:border-main-white"></span>
+          <span className="bg-main-white before:bg-accent peer-checked:bg-main-black dark:border-main-white absolute top-0 right-0 bottom-0 left-0 rounded-2xl peer-focus:shadow-md before:absolute before:top-1/2 before:left-0 before:h-5 before:w-5 before:-translate-y-1/2 before:rounded-xl before:duration-200 peer-checked:before:translate-x-[1.6rem] dark:border"></span>
           <FontAwesomeIcon
-            className="fa-sm absolute right-1.5 top-1/2 inline-block -translate-y-1/2 text-main-black opacity-100 duration-150 peer-checked:opacity-0"
+            className="fa-sm text-main-black absolute top-1/2 right-1.5 inline-block -translate-y-1/2 opacity-100 duration-150 peer-checked:opacity-0"
             icon={faSun}
           />
           <FontAwesomeIcon
-            className="fa-sm absolute left-1.5 top-1/2 inline-block -translate-y-1/2 text-main-white opacity-0 duration-150 peer-checked:opacity-100"
+            className="fa-sm text-main-white absolute top-1/2 left-1.5 inline-block -translate-y-1/2 opacity-0 duration-150 peer-checked:opacity-100"
             icon={faMoon}
           />
         </label>
@@ -56,7 +56,9 @@ export default function Header({ toggleTheme }) {
         <HeaderLink link="/about">About</HeaderLink>
         <HeaderLink link={"/write"}>Write</HeaderLink>
         {isAuthenticated ? (
-          <button onClick={handleLogout}>Logout</button>
+          <button className="px-2 hover:cursor-pointer" onClick={handleLogout}>
+            Logout
+          </button>
         ) : (
           <>
             <HeaderLink link="/login">Login</HeaderLink>
