@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import MainButton from "./MainButton";
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import apiService from "../api/apiService";
 import formatDate from "../helpers/formatDate";
 import PostCard from "./PostCard";
@@ -24,6 +24,8 @@ library.add(faThumbsUp, faComment);
 export default function PostPage() {
   const MAX_NUMBER_OF_POSTS = 4;
   const { username, postId } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const { isAuthenticated } = useAuth();
 
@@ -67,8 +69,13 @@ export default function PostPage() {
   }, [username, postId, isAuthenticated]);
 
   async function handleLike() {
-    setLiked(!liked);
-    await apiService.likePost(author, postId);
+    if (isAuthenticated) {
+      setPost({ ...post, likes: post.likes + (liked ? -1 : 1) });
+      setLiked(!liked);
+      await apiService.likePost(author, postId);
+    } else {
+      navigate("/login", { state: { from: location.pathname } });
+    }
   }
 
   return (
@@ -155,7 +162,6 @@ export default function PostPage() {
                 />
                 <p className="ml-1">{post.likes}</p>
               </button>
-
               <button title="Save this post to your list of favorites">
                 <FontAwesomeIcon icon={faBookmark} className="text-2xl" />
               </button>
