@@ -71,7 +71,7 @@ export default function PostPage() {
 
   return (
     <>
-      <div className="border-main-black mx-[20vw] mt-8 border-l pl-4">
+      <div className="border-main-black dark:border-main-white mx-[20vw] mt-8 border-l pl-4">
         <div className="flex w-full justify-between">
           <div className="flex w-full flex-col justify-between">
             <div className="flex h-full w-full flex-col justify-between">
@@ -95,7 +95,7 @@ export default function PostPage() {
                 </div>
               </div>
             </div>
-            <div className="border-main-black mb-2 flex w-full items-center justify-between border-y px-4 py-4">
+            <div className="border-main-black dark:border-main-white mb-2 flex w-full items-center justify-between border-y px-4 py-4">
               <div className="flex w-1/3 items-center justify-between">
                 <button
                   onClick={handleLike}
@@ -119,10 +119,10 @@ export default function PostPage() {
             height={300}
           />
         </div>
-        <div className="border-main-black w-5/6 border-r border-b py-4 pr-4 pb-4">
+        <div className="border-main-black dark:border-main-white w-5/6 border-r border-b py-4 pr-4 pb-4">
           <MDEditor.Markdown className="p-2" source={post.content} />
         </div>
-        <div className="border-main-black flex h-36 w-5/6 flex-col justify-between border-r px-4 py-8">
+        <div className="border-main-black dark:border-main-white flex h-36 w-5/6 flex-col justify-between border-r px-4 py-8">
           <div className="flex items-center">
             {post.category ? (
               <div className="mr-8" key={post.category}>
@@ -149,8 +149,8 @@ export default function PostPage() {
           </div>
         </div>
       </div>
-      <div className="border-main-black mb-8 flex border-t px-[10vw] py-4">
-        <div className="border-main-black w-1/3 border-r pr-4">
+      <div className="border-main-black dark:border-main-white mb-8 flex border-t px-[10vw] py-4">
+        <div className="border-main-black dark:border-main-white w-1/3 border-r pr-4">
           <div>
             <img
               src={author.profilePicSrc}
