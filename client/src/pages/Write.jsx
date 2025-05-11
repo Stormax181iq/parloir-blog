@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MainButton from "../components/MainButton";
 import apiService from "../api/apiService";
 
 import MDEditor from "@uiw/react-md-editor";
 import { useNavigate } from "react-router-dom";
+import ThemeContext from "../context/ThemeContext";
 
 export default function Write() {
   const navigate = useNavigate();
+  const theme = useContext(ThemeContext);
+
   const [categories, setCategories] = useState([]);
 
   const [title, setTitle] = useState("");
@@ -47,7 +50,11 @@ export default function Write() {
       <h1 className="font-h mt-8 mb-4 text-center text-3xl">
         Share your thoughts by writing a brand new post !
       </h1>
-      <form className="flex flex-col justify-between" onSubmit={handleSubmit}>
+      <form
+        data-color-mode={theme === "light" ? "light" : "dark"}
+        className="flex flex-col justify-between"
+        onSubmit={handleSubmit}
+      >
         <input
           className="bg-main-white dark:bg-main-black my-2 rounded-2xl p-2 dark:border"
           type="text"

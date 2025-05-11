@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
 import { faThumbsUp as faThumbsUpSolid } from "@fortawesome/free-solid-svg-icons";
 import MainButton from "./MainButton";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import apiService from "../api/apiService";
 import formatDate from "../helpers/formatDate";
 import PostCard from "./PostCard";
 import useAuth from "../hooks/useAuth";
 import MDEditor from "@uiw/react-md-editor";
+import ThemeContext from "../context/ThemeContext";
 
 export default function PostPage() {
   const MAX_NUMBER_OF_POSTS = 4;
@@ -19,6 +20,8 @@ export default function PostPage() {
   const location = useLocation();
 
   const { isAuthenticated } = useAuth();
+  const theme = useContext(ThemeContext);
+  console.log(theme);
 
   const [post, setPost] = useState({});
   const [author, setAuthor] = useState({});
@@ -119,7 +122,10 @@ export default function PostPage() {
             height={300}
           />
         </div>
-        <div className="border-main-black dark:border-main-white w-5/6 border-r border-b py-4 pr-4 pb-4">
+        <div
+          data-color-mode={theme === "light" ? "light" : "dark"}
+          className="border-main-black dark:border-main-white w-5/6 border-r border-b py-4 pr-4 pb-4"
+        >
           <MDEditor.Markdown className="p-2" source={post.content} />
         </div>
         <div className="border-main-black dark:border-main-white flex h-36 w-5/6 flex-col justify-between border-r px-4 py-8">
