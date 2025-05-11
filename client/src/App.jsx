@@ -13,6 +13,7 @@ import Write from "./pages/Write";
 import PostPage from "./components/PostPage";
 import UserPage from "./components/UserPage";
 import CategoryPage from "./components/CategoryPage";
+import NotFound from "./components/NotFound";
 
 import ThemeContext from "./context/ThemeContext";
 import { useTheme } from "./hooks/useTheme";
@@ -29,6 +30,7 @@ function App() {
           <div className="flex min-h-screen flex-col">
             <Header toggleTheme={toggleTheme} />
             <Routes>
+              <Route path="*" element={<NotFound />} />
               <Route path="/">
                 <Route index element={<Home />} />
                 <Route path="about" element={<About />} />
